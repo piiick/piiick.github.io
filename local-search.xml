@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>渗透之信息收集</title>
+    <link href="/2024/04/27/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%AF%87/"/>
+    <url>/2024/04/27/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%AF%87/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/images/informationGathering/"></p><h3 id="渗透测试流程："><a href="#渗透测试流程：" class="headerlink" title="渗透测试流程："></a>渗透测试流程：</h3><p><strong>确认信息 信息收集 漏洞扫描 漏洞利用 形成报告</strong></p><h3 id="信息收集的内容："><a href="#信息收集的内容：" class="headerlink" title="信息收集的内容："></a>信息收集的内容：</h3><p><strong>域名信息、IP段、开放的端口、网站架构、文件目录结构、软件版本、WAF、旁站、C段…</strong></p><h2 id="域名相关信息："><a href="#域名相关信息：" class="headerlink" title="域名相关信息："></a>域名相关信息：</h2><p><strong>什么是域名</strong>：域名(Domain Name)是一个映射到数字 IP 地址的文本字符串，可用于从客户端软件访问网站。例如baidu.com就是一个域名</p><p><strong>域名分类</strong></p><p>国际域名：.com(商业域名)；.net(网络服务)；.org(组织协会等)；.gov(政府部门)；.edu(教育机构)；.mil(军事领域)；.int(国际组织)</p><p>国别域名：.CN代表中国，.UK代表英国，.US代表美国</p><p>新顶级域名：biz, info, name, pro, aero, coop, museum ……</p><p><strong>域名联系人信息</strong>：所属人，邮箱，电话，地址……</p><p><strong>whois查询：</strong><a href="http://whois.chinaz.com/">http://whois.chinaz.com</a>  <a href="https://www.whois.com/">https://www.whois.com</a>  <a href="http://whois.cnnic.cn/">http://whois.cnnic.cn</a></p><p>kali里面也可以whois查询 <code>whois 域名</code>即可查询</p><p>可以设置隐藏信息，查询不到相关信息</p><p><strong>域名反查</strong>：<a href="http://whois.chinaz.com/reverse">http://whois.chinaz.com/reverse</a> 可以通过邮箱，注册人，电话反查其他相关域名</p><p><strong>ICP备案查询：</strong>工信部备案查询 <a href="http://beian.miit.gov.cn/">http://beian.miit.gov.cn</a>   其他<a href="https://icp.chinaz.com/">https://icp.chinaz.com</a> <a href="http://beian88.com/">http://beian88.com</a></p><p>ICP备案是互联网内容提供商备案的简称，是一种对互联网信息服务提供者的资质和信息进行审核和登记的过程。在我国境内开展互联网信息服务业务的企业或个人，需要进行ICP备案。国内IP绑定域名需要在主机商备案，如果没有备案，即使绑定了域名也无法将域名解析成对应ip地址。（如果购买的是国外的服务器则没有备案要求）</p><p><strong>企业信息查询</strong>：<a href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com</a></p><p><strong>子域名：</strong>子域名(Subdomain)是在域名系统等级中，属于更高一层域的域。例如<a href="http://www.baidu.com/">www.baidu.com</a> 的子域名为news.baidu.com</p><p><strong>子域名查询：</strong></p><p>1、字典猜解   layer子域名挖掘机  其他工具<a href="http://github.com/lijiejie/subDomainsBrute">http://github.com/lijiejie/subDomainsBrute</a></p><p>2、枚举 自己一个个试，如果连接成功则存在</p><p><strong>域名DNS信息：</strong>域名解析服务(Domain Name Server)</p><h2 id="IP相关信息："><a href="#IP相关信息：" class="headerlink" title="IP相关信息："></a>IP相关信息：</h2><h2 id="端口服务相关信息："><a href="#端口服务相关信息：" class="headerlink" title="端口服务相关信息："></a>端口服务相关信息：</h2><h2 id="指纹识别："><a href="#指纹识别：" class="headerlink" title="指纹识别："></a>指纹识别：</h2><h2 id="Google-Hacking："><a href="#Google-Hacking：" class="headerlink" title="Google Hacking："></a>Google Hacking：</h2><h2 id="目录信息："><a href="#目录信息：" class="headerlink" title="目录信息："></a>目录信息：</h2><h2 id="Git-Hack："><a href="#Git-Hack：" class="headerlink" title="Git Hack："></a>Git Hack：</h2>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>红队打靶W1R3S打靶思路</title>
     <link href="/2024/04/23/%E7%BA%A2%E9%98%9F%E6%89%93%E9%9D%B6W1R3S%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/"/>
     <url>/2024/04/23/%E7%BA%A2%E9%98%9F%E6%89%93%E9%9D%B6W1R3S%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/</url>
