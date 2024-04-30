@@ -1,46 +1,21 @@
-html { 
-	overflow-y: scroll; /* 设置自定义滚动条 这样做会强制显示滚动条*/
-	/*overflow-y: auto; /* 可以更换为auto，自动显示模式，就不会强制显示*/
+/* 滚动条bynote.cn */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
 }
 
-/* 滚动栏本身的背景 此项必须有 */
-html::-webkit-scrollbar { 
-    width: 6px;
-    background-color: rgba(0, 0, 0, 0.0);
+::-webkit-scrollbar-thumb {
+    background-color: #e58a8a;
+    background-image: -webkit-linear-gradient( 45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    border-radius: 2em;
 }
 
-/*滚动栏下方的空白区域*/
-html::-webkit-scrollbar-track {
-	background: rgba(255, 85, 127, 0.0); /* 设置透明，就会随主题变化 */
+::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
-/* 可拖动滚动元素的大小取决于可滚动元素的大小 */
-html::-webkit-scrollbar-thumb{
-	background: #252d38;
-	border-radius: 6px;
-}
-
-/* 可滚动元素的底角，两个滚动条在此相交。 */
-html::-webkit-scrollbar-corner {
-	background:#82AFFF;
-}
-.markdown-body table {
-	overflow-x: scroll; /* 设置自定义滚动条 */
-}
-
-/* 滚动栏本身的背景 此项必须有 */
-.markdown-body table::-webkit-scrollbar { 
-    height: 8px;
-    background-color: rgba(0, 0, 0, 0.0);
-}
-
-/*滚动栏下方的空白区域*/
-.markdown-body table::-webkit-scrollbar-track {
-	background-color: rgba(255, 85, 127, 0.0);
-}
-
-/* 可拖动滚动元素的大小取决于可滚动元素的大小 */
-.markdown-body table::-webkit-scrollbar-thumb{
-	background: #ffaaff;
-	border-radius: 2px;
+::-moz-selection {
+    color: #fff;
+    background-color: #e58a8a;
 }
