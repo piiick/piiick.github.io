@@ -1,0 +1,52 @@
+html { 
+	cursor: url(/images/minecraft/normal.cur),auto;/* url地址可以是链接，相对位置，绝对位置 */
+	background-color: rgba(0, 0, 0, 0.0);  /* 写成透明就行 */
+}
+
+/* 封面大图 */
+.banner {
+	cursor: url(/images/minecraft/normal.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 封面向下 */
+.scroll-down-bar {
+	cursor: url(/images/minecraft/normal.cur),auto; /* 一个小手 */
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 所有可跳转链接 */
+a[href] {
+	cursor: url(/images/minecraft/help.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框关闭按钮  */
+#local-search-close.close {
+	cursor: url(/images/minecraft/normal.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框、输入框 */
+input,textarea {
+	cursor: url(/images/minecraft/normal.cur),auto;    /* 这里应该是竖条光标 */
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 代码复制键 按钮键增加!important属性后可删 */
+.copy-btn.copy-btn-light {
+	cursor: url(images/minecraft/normal.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 按钮 */
+button[class] {
+	cursor: url(images/minecraft/normal.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 补充按钮 */
+svg {
+	cursor: url(images/minecraft/normal.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
