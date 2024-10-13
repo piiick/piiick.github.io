@@ -16,21 +16,31 @@
   <meta name="author" content="piiick">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/index.html">
+    <meta name="description" content="缘由太懒了好久没更新博客，刚好想更新一下就在部署时出现了问题，在找遍网络后，最后找到一个解决办法 摇：ssh: connect to host github.com port 22: Connection refused - 知乎 (zhihu.com) 22端口超时，只能用443端口了 12345678910$ vim ~&#x2F;.ssh&#x2F;config&#96;&#96;&#96;# Add section below to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo遇到的一点小问题">
+<meta property="og:url" content="http://example.com/2024/10/13/hexo%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="piiick的博客">
+<meta property="og:description" content="缘由太懒了好久没更新博客，刚好想更新一下就在部署时出现了问题，在找遍网络后，最后找到一个解决办法 摇：ssh: connect to host github.com port 22: Connection refused - 知乎 (zhihu.com) 22端口超时，只能用443端口了 12345678910$ vim ~&#x2F;.ssh&#x2F;config&#96;&#96;&#96;# Add section below to">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-13T15:46:00.702Z">
 <meta property="article:author" content="piiick">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>归档 - piiick的博客</title>
+  <title>hexo遇到的一点小问题 - piiick的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -87,7 +97,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -205,9 +215,49 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="归档"></span>
+            <span id="subtitle" data-typed-text="hexo遇到的一点小问题"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-13 00:00" pubdate>
+          2024年10月13日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          102 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          1 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
 
         
       </div>
@@ -237,100 +287,183 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 17 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2024</p>
-    
-    <a href="/2024/10/13/hexo%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98/" class="list-group-item list-group-item-action">
-      <time>10-13</time>
-      <div class="list-group-item-title">hexo遇到的一点小问题</div>
-    </a>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">hexo遇到的一点小问题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>太懒了好久没更新博客，刚好想更新一下就在部署时出现了问题，在找遍网络后，最后找到一个解决办法</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/521340971">摇：ssh: connect to host github.com port 22: Connection refused - 知乎 (zhihu.com)</a></p>
+<p>22端口超时，只能用443端口了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ vim ~/.ssh/config<br>```<br><span class="hljs-comment"># Add section below to it</span><br>Host github.com<br>  Hostname ssh.github.com<br>  Port 443<br>```<br>$ ssh -T git@github.com<br>Hi xxxxx! You<span class="hljs-string">&#x27;ve successfully authenticated, but GitHub does not</span><br><span class="hljs-string">provide shell access.</span><br></code></pre></td></tr></table></figure>
+
+<p>修改.ssh&#x2F;中的config，如果没有新建一个即可。</p>
+<p>完美解决！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
   
     
-    <a href="/2024/09/23/ctfshow--php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="list-group-item list-group-item-action">
-      <time>09-23</time>
-      <div class="list-group-item-title">ctfshow--php反序列化</div>
-    </a>
+      <span class="category-chain">
+        
+  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
   
-    
-    <a href="/2024/08/07/pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="list-group-item list-group-item-action">
-      <time>08-07</time>
-      <div class="list-group-item-title">pickle反序列化</div>
-    </a>
   
+
+      </span>
     
-    <a href="/2024/08/01/%E5%8F%8D%E5%B0%84/" class="list-group-item list-group-item-action">
-      <time>08-01</time>
-      <div class="list-group-item-title">java反射</div>
-    </a>
   
-    
-    <a href="/2024/07/27/php-filter%E5%AD%A6%E4%B9%A0/" class="list-group-item list-group-item-action">
-      <time>07-27</time>
-      <div class="list-group-item-title">php-filter学习</div>
-    </a>
+</span>
+
+    </div>
   
-    
-    <a href="/2024/07/26/%E7%AC%AC%E4%B8%80%E5%B1%8A%E6%B9%98%E8%B5%A3%E8%BE%B9%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E9%83%A8%E5%88%86%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/" class="list-group-item list-group-item-action">
-      <time>07-26</time>
-      <div class="list-group-item-title">武功山杯·第一届湘赣边大学生网络安全竞赛</div>
-    </a>
-  
-    
-    <a href="/2024/07/19/PHP%E5%88%A9%E7%94%A8prce%E5%9B%9E%E6%BA%AF%E6%AC%A1%E6%95%B0%E9%99%90%E5%88%B6%E7%9A%84%E7%BB%95%E8%BF%87/" class="list-group-item list-group-item-action">
-      <time>07-19</time>
-      <div class="list-group-item-title">PHP利用pcre回溯次数限制的绕过waf</div>
-    </a>
-  
-    
-    <a href="/2024/07/13/SSTI%E8%87%AA%E5%8A%A8%E5%B7%A5%E5%85%B7/" class="list-group-item list-group-item-action">
-      <time>07-13</time>
-      <div class="list-group-item-title">SSTI工具</div>
-    </a>
-  
-    
-    <a href="/2024/07/11/ctfshow%20--%20%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="list-group-item list-group-item-action">
-      <time>07-11</time>
-      <div class="list-group-item-title">ctfshow--文件包含</div>
-    </a>
-  
-    
-    <a href="/2024/07/09/ctfshow%20--%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" class="list-group-item list-group-item-action">
-      <time>07-09</time>
-      <div class="list-group-item-title">ctfshow--命令执行</div>
-    </a>
   
 </div>
 
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/#board">2</a><a class="extend next" rel="next" href="/archives/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+              
+  
 
-
-
-
-              </div>
-            </div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hexo遇到的一点小问题</div>
+      <div>http://example.com/2024/10/13/hexo遇到的小问题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>piiick</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
           </div>
         </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/23/ctfshow--php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="ctfshow--php反序列化">
+                        <span class="hidden-mobile">ctfshow--php反序列化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
       </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
 
     
@@ -424,6 +557,99 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 
 
 
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
 
