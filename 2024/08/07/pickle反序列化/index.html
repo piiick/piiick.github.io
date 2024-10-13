@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/piiick.jpg">
+  <link rel="icon" href="/images/piiick.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="piiick">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python面向对象参考：Python 面向对象 | 菜鸟教程 (runoob.com) 面向对象简介： 类(Class): 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。 类变量：类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。 数据成员：类变量或者实例变量, 用于处理类及其实例对象的相关的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pickle反序列化">
+<meta property="og:url" content="http://example.com/2024/08/07/pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="piiick的博客">
+<meta property="og:description" content="Python面向对象参考：Python 面向对象 | 菜鸟教程 (runoob.com) 面向对象简介： 类(Class): 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。 类变量：类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。 数据成员：类变量或者实例变量, 用于处理类及其实例对象的相关的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-14T08:55:47.025Z">
+<meta property="article:author" content="piiick">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>pickle反序列化 - piiick的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cur.css">
+<link rel="stylesheet" href="/css/welt_right.css">
+<link rel="stylesheet" href="/css/toutudaziji.css">
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>piiick的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/none.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pickle反序列化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-07 00:00" pubdate>
+          2024年8月7日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  function getRandomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var randomNum = getRandomNumber(1, 17).toString();
+var banner_img = "/images/random-bg/" + randomNum + ".jpg";
+document.getElementById('banner').removeAttribute('style')
+document.getElementById('banner').setAttribute('style',`background: url('${banner_img}') no-repeat center center; background-size: cover;`)
+
+
+</script>
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pickle反序列化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="Python面向对象"><a href="#Python面向对象" class="headerlink" title="Python面向对象"></a>Python面向对象</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-object.html">Python 面向对象 | 菜鸟教程 (runoob.com)</a></p>
+<h4 id="面向对象简介："><a href="#面向对象简介：" class="headerlink" title="面向对象简介："></a>面向对象简介：</h4><ul>
+<li><strong>类(Class):</strong> 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。</li>
+<li><strong>类变量：</strong>类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。</li>
+<li><strong>数据成员：</strong>类变量或者实例变量, 用于处理类及其实例对象的相关的数据。</li>
+<li><strong>方法重写：</strong>如果从父类继承的方法不能满足子类的需求，可以对其进行改写，这个过程叫方法的覆盖（override），也称为方法的重写。</li>
+<li><strong>局部变量：</strong>定义在方法中的变量，只作用于当前实例的类。</li>
+<li><strong>实例变量：</strong>在类的声明中，属性是用变量来表示的。这种变量就称为实例变量，是在类声明的内部但是在类的其他成员方法之外声明的。</li>
+<li><strong>继承：</strong>即一个派生类（derived class）继承基类（base class）的字段和方法。继承也允许把一个派生类的对象作为一个基类对象对待。例如，有这样一个设计：一个Dog类型的对象派生自Animal类，这是模拟”是一个（is-a）”关系（例图，Dog是一个Animal）。</li>
+<li><strong>实例化：</strong>创建一个类的实例，类的具体对象。</li>
+<li><strong>方法：</strong>类中定义的函数。</li>
+<li><strong>对象：</strong>通过类定义的数据结构实例。对象包括两个数据成员（类变量和实例变量）和方法</li>
+</ul>
+<h4 id="创建类："><a href="#创建类：" class="headerlink" title="创建类："></a>创建类：</h4><p>使用class语句来创建一个新类，class之后为类的名称并以冒号结尾：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassName</span>:<br>   <span class="hljs-string">&#x27;类的帮助信息&#x27;</span>   <span class="hljs-comment">#类文档字符串</span><br>   class_suite  <span class="hljs-comment">#类体</span><br></code></pre></td></tr></table></figure>
+
+<p>类的帮助信息可以通过ClassName.__doc__查看。</p>
+<p>class_suite 由类成员，方法，数据属性组成。</p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/python</span><br><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span>:<br>    <span class="hljs-string">&#x27;所有员工的基类&#x27;</span><br>    empCount = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, salary</span>):<br>        self.name = name<br>        self.salary = salary<br>        Employee.empCount += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayCount</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Total Employee %d&quot;</span> % Employee.empCount)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayEmployee</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Name : &quot;</span>, self.name, <span class="hljs-string">&quot;, Salary: &quot;</span>, self.salary)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>empCount 变量是一个类变量，它的值将在这个类的所有实例之间共享。你可以在内部类或外部类使用 Employee.empCount 访问。</li>
+<li>第一种方法__init__()方法是一种特殊的方法，被称为类的构造函数或初始化方法，当创建了这个类的实例时就会调用该方法</li>
+<li>self 代表类的实例，self 在定义类的方法时是必须有的，虽然在调用时不必传入相应的参数。</li>
+</ul>
+<h4 id="self代表类的实例，而非类"><a href="#self代表类的实例，而非类" class="headerlink" title="self代表类的实例，而非类"></a>self代表类的实例，而非类</h4><p>类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的<strong>第一个参数名称</strong>, 按照惯例它的名称是 self。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">prt</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(self)<br>        <span class="hljs-built_in">print</span>(self.__class__)<br> <br>t = Test()<br>t.prt()<br></code></pre></td></tr></table></figure>
+
+<p>以上实例执行结果为：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">&lt;__main__.Test instance at 0x10d066878&gt;<br>__main__.Test<br></code></pre></td></tr></table></figure>
+
+<p>从执行结果可以很明显的看出，self 代表的是类的实例，代表当前对象的地址，而 <strong>self.<strong>class</strong></strong> 则指向类。</p>
+<p>注意：self并不是python关键字，将其换成其他字符串如piiick也可以正常执行。</p>
+<h4 id="创建实例对象"><a href="#创建实例对象" class="headerlink" title="创建实例对象"></a>创建实例对象</h4><p>实例化类其他编程语言中一般用关键字 new，但是在 Python 中并没有这个关键字，类的实例化类似函数调用方式。</p>
+<p>以下使用类的名称 Employee 来实例化，并通过 <strong>init</strong> 方法接收参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;创建 Employee 类的第一个对象&quot;</span><br>emp1 = Employee(<span class="hljs-string">&quot;Zara&quot;</span>, <span class="hljs-number">2000</span>)<br><span class="hljs-string">&quot;创建 Employee 类的第二个对象&quot;</span><br>emp2 = Employee(<span class="hljs-string">&quot;Manni&quot;</span>, <span class="hljs-number">5000</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a>访问属性</h4><p>可以使用点号 <strong>.</strong> 来访问对象的属性。使用如下类的名称访问类变量:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">emp1.displayEmployee()<br>emp2.displayEmployee()<br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;Total Employee %d&quot;</span> % Employee.empCount<br></code></pre></td></tr></table></figure>
+
+<p><strong>完整实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python</span><br><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span>:<br>    <span class="hljs-string">&#x27;所有员工的基类&#x27;</span><br>    empCount = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, salary</span>):<br>        self.name = name<br>        self.salary = salary<br>        Employee.empCount += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayCount</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Total Employee %d&quot;</span> % Employee.empCount)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayEmployee</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Name : &quot;</span>, self.name, <span class="hljs-string">&quot;, Salary: &quot;</span>, self.salary)<br><br><br><span class="hljs-string">&quot;创建 Employee 类的第一个对象&quot;</span><br>emp1 = Employee(<span class="hljs-string">&quot;Zara&quot;</span>, <span class="hljs-number">2000</span>)<br><span class="hljs-string">&quot;创建 Employee 类的第二个对象&quot;</span><br>emp2 = Employee(<span class="hljs-string">&quot;Manni&quot;</span>, <span class="hljs-number">5000</span>)<br>emp1.displayEmployee()<br>emp2.displayEmployee()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Total Employee %d&quot;</span> % Employee.empCount)<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">Name :  Zara , Salary:  2000<br>Name :  Manni , Salary:  5000<br>Total Employee 2<br></code></pre></td></tr></table></figure>
+
+<p>还可以添加，删除，修改类的属性，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">emp1.age = <span class="hljs-number">7</span>  <span class="hljs-comment"># 添加一个 &#x27;age&#x27; 属性</span><br>emp1.age = <span class="hljs-number">8</span>  <span class="hljs-comment"># 修改 &#x27;age&#x27; 属性</span><br><span class="hljs-keyword">del</span> emp1.age  <span class="hljs-comment"># 删除 &#x27;age&#x27; 属性</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以使用以下函数的方式来访问属性：</p>
+<ul>
+<li>getattr(obj, name[, default]) : 访问对象的属性。</li>
+<li>hasattr(obj,name) : 检查是否存在一个属性。</li>
+<li>setattr(obj,name,value) : 设置一个属性。如果属性不存在，会创建一个新属性。</li>
+<li>delattr(obj, name) : 删除属性。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">hasattr</span>(emp1, <span class="hljs-string">&#x27;age&#x27;</span>)    <span class="hljs-comment"># 如果存在 &#x27;age&#x27; 属性返回 True。</span><br><span class="hljs-built_in">getattr</span>(emp1, <span class="hljs-string">&#x27;age&#x27;</span>)    <span class="hljs-comment"># 返回 &#x27;age&#x27; 属性的值</span><br><span class="hljs-built_in">setattr</span>(emp1, <span class="hljs-string">&#x27;age&#x27;</span>, <span class="hljs-number">8</span>) <span class="hljs-comment"># 添加属性 &#x27;age&#x27; 值为 8</span><br><span class="hljs-built_in">delattr</span>(emp1, <span class="hljs-string">&#x27;age&#x27;</span>)    <span class="hljs-comment"># 删除属性 &#x27;age&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Python内置类属性"><a href="#Python内置类属性" class="headerlink" title="Python内置类属性"></a>Python内置类属性</h4><ul>
+<li><strong>dict</strong> : 类的属性（包含一个字典，由类的数据属性组成）</li>
+<li><strong>doc</strong> :类的文档字符串</li>
+<li><strong>name</strong>: 类名</li>
+<li><strong>module</strong>: 类定义所在的模块（类的全名是’<strong>main</strong>.className’，如果类位于一个导入模块mymod中，那么className.<strong>module</strong> 等于 mymod）</li>
+<li><strong>bases</strong> : 类的所有父类构成元素（包含了一个由所有父类组成的元组）</li>
+</ul>
+<p><strong>实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/python</span><br><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span>:<br>    <span class="hljs-string">&#x27;所有员工的基类&#x27;</span><br>    empCount = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, salary</span>):<br>        self.name = name<br>        self.salary = salary<br>        Employee.empCount += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayCount</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Total Employee %d&quot;</span> % Employee.empCount)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">displayEmployee</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Name : &quot;</span>, self.name, <span class="hljs-string">&quot;, Salary: &quot;</span>, self.salary)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Employee.__doc__:&quot;</span>, Employee.__doc__)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Employee.__name__:&quot;</span>, Employee.__name__)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Employee.__module__:&quot;</span>, Employee.__module__)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Employee.__bases__:&quot;</span>, Employee.__bases__)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Employee.__dict__:&quot;</span>, Employee.__dict__)<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">Employee.__doc__: 所有员工的基类<br>Employee.__name__: Employee<br>Employee.__module__: __main__<br>Employee.__bases__: (&lt;class &#x27;object&#x27;&gt;,)<br>Employee.__dict__: &#123;&#x27;__module__&#x27;: &#x27;__main__&#x27;, &#x27;__doc__&#x27;: &#x27;所有员工的基类&#x27;, &#x27;empCount&#x27;: 0, &#x27;__init__&#x27;: &lt;function Employee.__init__ at 0x000002A3CB538AE0&gt;, &#x27;displayCount&#x27;: &lt;function Employee.displayCount at 0x000002A3CB539760&gt;, &#x27;displayEmployee&#x27;: &lt;function Employee.displayEmployee at 0x000002A3CB539800&gt;, &#x27;__dict__&#x27;: &lt;attribute &#x27;__dict__&#x27; of &#x27;Employee&#x27; objects&gt;, &#x27;__weakref__&#x27;: &lt;attribute &#x27;__weakref__&#x27; of &#x27;Employee&#x27; objects&gt;&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Python中的序列化与反序列化"><a href="#Python中的序列化与反序列化" class="headerlink" title="Python中的序列化与反序列化"></a>Python中的序列化与反序列化</h3><h4 id="JSON序列化与反序列化"><a href="#JSON序列化与反序列化" class="headerlink" title="JSON序列化与反序列化"></a>JSON序列化与反序列化</h4><p>JSON 是一个文件格式，也是一个标准化的数据传输方案，通常网站的后端和前端的交流，移动 APP 和云服务器的交流方式都是通过 JSON。</p>
+<p>Python的JSON模块 序列化与反序列化的过程分别叫做：<strong>encoding</strong> 和 <strong>decoding</strong>。</p>
+<ul>
+<li>*<strong>encoding：*</strong> 把Python对象转换成JSON字符串</li>
+<li>*<strong>decoding：*</strong> 把JSON字符串转换成python对象</li>
+</ul>
+<p>json模块提供了以下两个方法来进行序列化和反序列化操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 序列化：将Python对象转换成json字符串</span><br>dumps(obj, skipkeys=<span class="hljs-literal">False</span>, ensure_ascii=<span class="hljs-literal">True</span>, check_circular=<span class="hljs-literal">True</span>, allow_nan=<span class="hljs-literal">True</span>, cls=<span class="hljs-literal">None</span>, indent=<span class="hljs-literal">None</span>, separators=<span class="hljs-literal">None</span>, default=<span class="hljs-literal">None</span>, sort_keys=<span class="hljs-literal">False</span>, **kw)<br> <br><span class="hljs-comment"># 反序列化：将json字符串转换成Python对象</span><br>loads(s, encoding=<span class="hljs-literal">None</span>, cls=<span class="hljs-literal">None</span>, object_hook=<span class="hljs-literal">None</span>, parse_float=<span class="hljs-literal">None</span>, parse_int=<span class="hljs-literal">None</span>, parse_constant=<span class="hljs-literal">None</span>, object_pairs_hook=<span class="hljs-literal">None</span>, **kw)<br></code></pre></td></tr></table></figure>
+
+<p>此外还有额外两个方法允许我们直接将序列化后得到的json数据保存到文件中，以及直接读取文件中的json数据进行反序列化操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 序列化：将Python对象转换成json字符串并存储到文件中</span><br>dump(obj, fp, skipkeys=<span class="hljs-literal">False</span>, ensure_ascii=<span class="hljs-literal">True</span>, check_circular=<span class="hljs-literal">True</span>, allow_nan=<span class="hljs-literal">True</span>, cls=<span class="hljs-literal">None</span>, indent=<span class="hljs-literal">None</span>, separators=<span class="hljs-literal">None</span>, default=<span class="hljs-literal">None</span>, sort_keys=<span class="hljs-literal">False</span>, **kw)<br> <br><span class="hljs-comment"># 反序列化：读取指定文件中的json字符串并转换成Python对象</span><br>load(fp, cls=<span class="hljs-literal">None</span>, object_hook=<span class="hljs-literal">None</span>, parse_float=<span class="hljs-literal">None</span>, parse_int=<span class="hljs-literal">None</span>, parse_constant=<span class="hljs-literal">None</span>, object_pairs_hook=<span class="hljs-literal">None</span>, **kw)<br></code></pre></td></tr></table></figure>
+
+<h5 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a><strong>实例</strong></h5><p><strong>序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 导入json模块</span><br><span class="hljs-keyword">import</span> json<br><br>simple_dict = &#123;<span class="hljs-string">&#x27;a&#x27;</span>:<span class="hljs-string">&#x27;str中国&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">&#x27;e&#x27;</span>: <span class="hljs-number">10</span>, <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-number">11.1</span>, <span class="hljs-string">&#x27;d&#x27;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&#x27;f&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-string">&#x27;g&#x27;</span>:(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>)&#125;<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;simple_dict.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> file_to_write:<br>    <span class="hljs-comment"># 进行json序列化,然后写入simple_dict.txt文件中</span><br>    json.dump(simple_dict, file_to_write)<br></code></pre></td></tr></table></figure>
+
+<p><strong>序列化后字符为</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">&#123;&quot;a&quot;: &quot;str\u4e2d\u56fd&quot;, &quot;c&quot;: true, &quot;e&quot;: 10, &quot;b&quot;: 11.1, &quot;d&quot;: null, &quot;f&quot;: [1, 2, 3], &quot;g&quot;: [4, 5, 6]&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>反序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 导入json模块</span><br><span class="hljs-keyword">import</span> json<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;simple_dict.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file_to_read:<br>    loaded_simple_dict = json.load(file_to_read)<br>    <span class="hljs-built_in">print</span>(loaded_simple_dict)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(loaded_simple_dict))<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">&#123;&#x27;a&#x27;: &#x27;str中国&#x27;, &#x27;c&#x27;: True, &#x27;e&#x27;: 10, &#x27;b&#x27;: 11.1, &#x27;d&#x27;: None, &#x27;f&#x27;: [1, 2, 3], &#x27;g&#x27;: [4, 5, 6]&#125;<br>&lt;class &#x27;dict&#x27;&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="PICKLE序列化与反序列化"><a href="#PICKLE序列化与反序列化" class="headerlink" title="PICKLE序列化与反序列化"></a>PICKLE序列化与反序列化</h4><p>pickle模块实现了用于对Python对象结构进行 序列化 和 反序列化 的二进制协议，与json模块不同的是pickle模块序列化和反序列化的过程分别叫做 pickling 和 unpickling：</p>
+<ul>
+<li>*<strong>pickling：*</strong> 是将Python对象转换为字节流的过程；</li>
+<li>*<strong>unpickling：*</strong> 是将字节流二进制文件或字节对象转换回Python对象的过程；</li>
+</ul>
+<h5 id="pickle模块与json模块对比"><a href="#pickle模块与json模块对比" class="headerlink" title="pickle模块与json模块对比"></a>pickle模块与json模块对比</h5><ul>
+<li>JSON是一种文本序列化格式（它输出的是unicode文件，大多数时候会被编码为utf-8），而pickle是一个二进制序列化格式;</li>
+<li>JOSN是我们可以读懂的数据格式，而pickle是二进制格式，我们无法读懂；</li>
+<li>JSON是与特定的编程语言或系统无关的，且它在Python生态系统之外被广泛使用，而pickle使用的数据格式是特定于Python的；</li>
+<li>默认情况下，JSON只能表示Python内建数据类型，对于自定义数据类型需要一些额外的工作来完成；pickle可以直接表示大量的Python数据类型，包括自定数据类型</li>
+<li>pickle实际上可以看作一种<strong>独立的语言</strong>，通过对opcode的更改编写可以执行python代码、覆盖变量等操作。直接编写的opcode灵活性比使用pickle序列化生成的代码更高，有的代码不能通过pickle序列化得到（pickle解析能力大于pickle生成能力）。</li>
+</ul>
+<h5 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a><strong>实例</strong></h5><p><strong>序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br>abc_dict = &#123;<span class="hljs-string">&#x27;a&#x27;</span>: <span class="hljs-string">&#x27;str中国&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">&#x27;e&#x27;</span>: <span class="hljs-number">10</span>, <span class="hljs-string">&#x27;b&#x27;</span>: <span class="hljs-number">11.1</span>, <span class="hljs-string">&#x27;d&#x27;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&#x27;f&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-string">&#x27;g&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]&#125;<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;abc.pk&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> file_to_write:  <br>    <span class="hljs-comment">#wb为二进制写入模式</span><br>    pickle.dump(abc_dict, file_to_write)<br></code></pre></td></tr></table></figure>
+
+<p><strong>反序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;abc.pk&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> file_to_read:<br>    <span class="hljs-comment"># 以二进制的形式进行读取文件</span><br>    abc_dict_pk = pickle.load(file_to_read)<br>    <span class="hljs-built_in">print</span>(abc_dict_pk)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(abc_dict_pk))<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">&#123;&#x27;a&#x27;: &#x27;str中国&#x27;, &#x27;c&#x27;: True, &#x27;e&#x27;: 10, &#x27;b&#x27;: 11.1, &#x27;d&#x27;: None, &#x27;f&#x27;: [1, 2, 3], &#x27;g&#x27;: [4, 5, 6]&#125;<br>&lt;class &#x27;dict&#x27;&gt;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="pickle反序列化漏洞"><a href="#pickle反序列化漏洞" class="headerlink" title="pickle反序列化漏洞"></a>pickle反序列化漏洞</h3><p>参考<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7436?time__1311=n4+xnD0Dy7GQDt=G=GCDlhjeaLxIxAK4eqiYq=x#toc-13">pickle反序列化初探 - 先知社区 (aliyun.com)</a></p>
+<h4 id="前置："><a href="#前置：" class="headerlink" title="前置："></a>前置：</h4><p><strong>pickle可序列化的对象：</strong></p>
+<ul>
+<li><p>None、True 和 False</p>
+</li>
+<li><p>整数、浮点数、复数</p>
+</li>
+<li><p>str、byte、bytearray</p>
+</li>
+<li><p>只包含可封存对象的集合，包括 tuple、list、set 和 dict</p>
+</li>
+<li><p>定义在模块最外层的函数（使用 def 定义，lambda 函数则不可以）</p>
+</li>
+<li><p>定义在模块最外层的内置函数</p>
+</li>
+<li><p>定义在模块最外层的类</p>
+</li>
+<li><p><code>__dict__</code> 属性值或 <code>__getstate__()</code> 函数的返回值可以被序列化的类</p>
+</li>
+</ul>
+<p>（详见官方文档<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.7/library/pickle.html#pickle-inst">pickle —— Python 对象序列化 — Python 3.7.13 文档</a>）</p>
+<p><strong><code>object.__reduce__()</code> 函数</strong></p>
+<ul>
+<li>在开发时，可以通过重写类的 <code>object.__reduce__()</code> 函数，使之在被实例化时按照重写的方式进行。具体而言，python要求 <code>object.__reduce__()</code> 返回一个 <code>(callable, ([para1,para2...])[,...])</code> 的元组，每当该类的对象被unpickle时，该callable就会被调用以生成对象（该callable其实是构造函数）。</li>
+<li>在pickle的opcode中， <code>R</code> 的作用与 <code>object.__reduce__()</code> 关系密切：选择栈上的第一个对象作为函数、第二个对象作为参数（第二个对象必须为元组），然后调用该函数。其实 <code>R</code> 正好对应 <code>object.__reduce__()</code> 函数， <code>object.__reduce__()</code> 的返回值会作为 <code>R</code> 的作用对象，当包含该函数的对象被pickle序列化时，得到的字符串是包含了 <code>R</code> 的。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pickle反序列化</div>
+      <div>http://example.com/2024/08/07/pickle反序列化/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>piiick</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/23/ctfshow--php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="ctfshow--php反序列化">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow--php反序列化</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/01/%E5%8F%8D%E5%B0%84/" title="java反射">
+                        <span class="hidden-mobile">java反射</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/curTexiao.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/backLines.js"></script>
+<script src="/js/piaoxue.js"></script>
+<script src="/js/qipao.js"></script>
+<script src="/js/curhit.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

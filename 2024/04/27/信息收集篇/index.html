@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/piiick.jpg">
+  <link rel="icon" href="/images/piiick.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="piiick">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="渗透测试流程：确认信息 信息收集 漏洞扫描 漏洞利用 形成报告 信息收集的内容：域名信息、IP段、开放的端口、网站架构、文件目录结构、软件版本、WAF、旁站、C段… 域名相关信息：什么是域名：域名(Domain Name)是一个映射到数字 IP 地址的文本字符串，可用于从客户端软件访问网站。例如baidu.com就是一个域名 域名分类 国际域名：.com(商业域名)；.net(网络服务)；.or">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透之信息收集">
+<meta property="og:url" content="http://example.com/2024/04/27/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%AF%87/index.html">
+<meta property="og:site_name" content="piiick的博客">
+<meta property="og:description" content="渗透测试流程：确认信息 信息收集 漏洞扫描 漏洞利用 形成报告 信息收集的内容：域名信息、IP段、开放的端口、网站架构、文件目录结构、软件版本、WAF、旁站、C段… 域名相关信息：什么是域名：域名(Domain Name)是一个映射到数字 IP 地址的文本字符串，可用于从客户端软件访问网站。例如baidu.com就是一个域名 域名分类 国际域名：.com(商业域名)；.net(网络服务)；.or">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/informationGathering/">
+<meta property="article:published_time" content="2024-04-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-03T07:06:03.340Z">
+<meta property="article:author" content="piiick">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/informationGathering/">
+  
+  
+  
+  <title>渗透之信息收集 - piiick的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cur.css">
+<link rel="stylesheet" href="/css/welt_right.css">
+<link rel="stylesheet" href="/css/toutudaziji.css">
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>piiick的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/none.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="渗透之信息收集"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-27 00:00" pubdate>
+          2024年4月27日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  function getRandomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var randomNum = getRandomNumber(1, 17).toString();
+var banner_img = "/images/random-bg/" + randomNum + ".jpg";
+document.getElementById('banner').removeAttribute('style')
+document.getElementById('banner').setAttribute('style',`background: url('${banner_img}') no-repeat center center; background-size: cover;`)
+
+
+</script>
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">渗透之信息收集</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="/images/informationGathering/" srcset="/images/loading.gif" lazyload></p>
+<h3 id="渗透测试流程："><a href="#渗透测试流程：" class="headerlink" title="渗透测试流程："></a>渗透测试流程：</h3><p><strong>确认信息 信息收集 漏洞扫描 漏洞利用 形成报告</strong></p>
+<h3 id="信息收集的内容："><a href="#信息收集的内容：" class="headerlink" title="信息收集的内容："></a>信息收集的内容：</h3><p><strong>域名信息、IP段、开放的端口、网站架构、文件目录结构、软件版本、WAF、旁站、C段…</strong></p>
+<h2 id="域名相关信息："><a href="#域名相关信息：" class="headerlink" title="域名相关信息："></a>域名相关信息：</h2><p><strong>什么是域名</strong>：域名(Domain Name)是一个映射到数字 IP 地址的文本字符串，可用于从客户端软件访问网站。例如baidu.com就是一个域名</p>
+<p><strong>域名分类</strong></p>
+<p>国际域名：.com(商业域名)；.net(网络服务)；.org(组织协会等)；.gov(政府部门)；.edu(教育机构)；.mil(军事领域)；.int(国际组织)</p>
+<p>国别域名：.CN代表中国，.UK代表英国，.US代表美国</p>
+<p>新顶级域名：biz, info, name, pro, aero, coop, museum ……</p>
+<p><strong>域名联系人信息</strong>：所属人，邮箱，电话，地址……</p>
+<p><strong>whois查询：</strong><a target="_blank" rel="noopener" href="http://whois.chinaz.com/">http://whois.chinaz.com</a>  <a target="_blank" rel="noopener" href="https://www.whois.com/">https://www.whois.com</a>  <a target="_blank" rel="noopener" href="http://whois.cnnic.cn/">http://whois.cnnic.cn</a></p>
+<p>kali里面也可以whois查询 <code>whois 域名</code>即可查询</p>
+<p>可以设置隐藏信息，查询不到相关信息</p>
+<p><strong>域名反查</strong>：<a target="_blank" rel="noopener" href="http://whois.chinaz.com/reverse">http://whois.chinaz.com/reverse</a> 可以通过邮箱，注册人，电话反查其他相关域名</p>
+<p><strong>ICP备案查询：</strong>工信部备案查询 <a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/">http://beian.miit.gov.cn</a>   其他<a target="_blank" rel="noopener" href="https://icp.chinaz.com/">https://icp.chinaz.com</a> <a target="_blank" rel="noopener" href="http://beian88.com/">http://beian88.com</a></p>
+<p>ICP备案是互联网内容提供商备案的简称，是一种对互联网信息服务提供者的资质和信息进行审核和登记的过程。在我国境内开展互联网信息服务业务的企业或个人，需要进行ICP备案。国内IP绑定域名需要在主机商备案，如果没有备案，即使绑定了域名也无法将域名解析成对应ip地址。（如果购买的是国外的服务器则没有备案要求）</p>
+<p><strong>企业信息查询</strong>：<a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com</a></p>
+<p><strong>子域名：</strong>子域名(Subdomain)是在域名系统等级中，属于更高一层域的域。例如<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 的子域名为news.baidu.com</p>
+<p><strong>子域名查询：</strong></p>
+<p>1、字典猜解   layer子域名挖掘机  其他工具<a target="_blank" rel="noopener" href="http://github.com/lijiejie/subDomainsBrute">http://github.com/lijiejie/subDomainsBrute</a></p>
+<p>2、枚举 自己一个个试，如果连接成功则存在</p>
+<p><strong>域名DNS信息：</strong>域名解析服务(Domain Name Server)是将域名转化为相应的IP地址的过程</p>
+<p><strong>域名解析服务</strong>：<a target="_blank" rel="noopener" href="http://dnspod.cn/">http://dnspod.cn</a></p>
+<p>在设置DNS解析时，需要选择不同的记录类型。常见的记录类型有</p>
+<p>1.A记录</p>
+<p>A记录是最常见和最常用的一种记录类型，用于指定主机名和IP（IPv4）地址之间的关系。通过添加A记录，网站管理者可以将域名与网站服务器地址进行绑定。</p>
+<p>2.AAAA记录</p>
+<p>与A记录相对的是，AAAA记录是用于将域名解析到IPv6地址的一种DNS记录类型。国内很多解析服务器不支持AAAA记录的设置，如果想进行AAAA记录解析，就需要将域名的NS记录指向一些专业的域名解析厂商。</p>
+<p>3.CNAME记录</p>
+<p>CNAME记录也是比较常用的一种记录类型，它是主机名到主机名的映射。如果需要将域名指向另一个域名，而不是一个IP地址，那么就需要添加一条CNAME记录。在CDN、企业邮箱、全局流量管理等业务场景下，经常会使用到CNAME记录。</p>
+<p>4.NS记录</p>
+<p>NS记录用于将子域名交给其他DNS服务商解析时使用，从某种意义上来讲NS记录相当于设置子域名解析服务器的A记录，用于在解析请求时确定该服务器的IP地址。大多数域名注册商默认使用自己的NS记录来解析用户的域名，但用户也可以设置NS记录指向更专业安全的域名解析厂商。</p>
+<p>5.MX记录</p>
+<p>MX记录是邮件交换记录，主要用于邮箱解析，在发送邮件时根据收件人的地址后缀进行邮件服务器的定位。MX记录的权重对邮件服务非常重要，发送邮件时，会先对域名进行解析，查找MX记录，按照权重从小到大的顺序联通服务器进行邮件发送。</p>
+<p>6.TXT记录</p>
+<p>TXT记录，一般用于某个主机名的标识和说明，通过设置TXT记录可以使别人更方便地联系到你。此外TXT记录还常用于做SPF反垃圾邮件和SSL证书的DNS验证等。</p>
+<p><strong>域名解析查询：</strong><a target="_blank" rel="noopener" href="https://ipw.cn/dns">https://ipw.cn/dns</a>          <a target="_blank" rel="noopener" href="http://sitereport.netcraft.com/">http://sitereport.netcraft.com</a>    </p>
+<h2 id="IP相关信息："><a href="#IP相关信息：" class="headerlink" title="IP相关信息："></a>IP相关信息：</h2><p><strong>DNS解析流程：</strong>主机往<strong>本地域名服务器(Local DNS Server)</strong> 发送DNS域名解析请求，如果本地没有就会发往根<strong>域名服务器(Root DNS Server)</strong> 发往请求,根域名服务器发回来一个<strong>顶级域名服务器(Top Level DNS Server)</strong> ，本地域名服务器再往顶级域名服务器发送请求，接受请求的顶级DNS服务器查找并返回此域名对应的<strong>Name Server域名服务器</strong> 的地址，这个Name Server服务器就是我要访问的网站域名提供商的服务器，其实该域名的解析任务就是由域名提供商的服务器来完成， Name Server服务器会查询存储的域名和IP的映射关系表，再把查询出来的域名和IP地址等等信息，连同一个TTL值返回给本地DNS服务器。</p>
+<p><strong>递归查询</strong>：客户端只发一次请求，要求对方给出最终结果。</p>
+<p><strong>迭代查询</strong>：客户端发出一次请求，对方如果没有授权回答，它就会返回一个能解答这个查询的其它名称服务器列表，客户端会再向返回的列表中发出请求，直到找到最终负责所查域名的名称服务器，从它得到最终结果。</p>
+<p><strong>ping&#x2F;nslookup：</strong></p>
+<p><strong>ping(因特网包探索器&#x2F;Packet Internet Groper)</strong> 是工作在TCP&#x2F;IP网络体系结构中应用层的一个服务命令， 主要是向特定的目的主机发送 ICMP（Internet Control Message Protocol 因特网报文控制协议）Echo 请求报文，测试目的站是否可达及了解其有关状态</p>
+<p><strong>Nslookup(name server lookup)( 域名查询)</strong> 是一个用于查询 Internet域名信息或诊断DNS 服务器问题的工具.</p>
+<p><strong>IP归属查询：</strong> <a target="_blank" rel="noopener" href="http://ipwhois.cnnic.net.cn/">http://ipwhois.cnnic.net.cn</a>           <a target="_blank" rel="noopener" href="http://ip138.com/">http://ip138.com</a></p>
+<p><strong>CDN:</strong> CDN(Content Delivery Network&#x2F;内容分发网络)。它是建立并覆盖在承载网之上，由分布在不同区域的边缘节点服务器群组成的分布式网络。CDN 的关键技术主要有内容存储和分发技术，简单来讲，CDN就是根据用户位置分配最近的资源，于是，用户在上网的时候不用直接访问源站，而是访问离他“最近的”一个 CDN 节点(也叫做“边缘节点”、edge node)，其实就是缓存了源站内容的代理服务器。</p>
+<p><strong>如何获得CDN背后的真实IP:</strong> 因为CDN的存在我们不一定能访问到源服务器，因此拿不到源服务器真实IP。</p>
+<p>​	<a target="_blank" rel="noopener" href="https://ping.chinaz.com/">超级ping</a>：如果Ping到多个ip则说明用了CDN </p>
+<p>​	<strong>历史DNS查询ip:</strong>  <a target="_blank" rel="noopener" href="http://dnshistory.org/">http://dnshistory.org</a>      <a target="_blank" rel="noopener" href="http://sitereport.netcraft.com/">http://sitereport.netcraft.com</a>      </p>
+<p>​	<strong>通过子域名查询ip：</strong> 主站用了CDN但是子站不一定用了CDN，如果子站和主站同一ip则可拿到真实ip</p>
+<p>​	<strong>国外主机解析查询ip：</strong> 对于没有国外CDN节点的网站可以用 <a target="_blank" rel="noopener" href="https://www.webpagetest.org/">https://www.webpagetest.org</a>                                        <a target="_blank" rel="noopener" href="https://dnscheck.pingdom.com/">https://dnscheck.pingdom.com</a></p>
+<p>​	其他：邮件，SSL证书，手机APP抓包，空间搜索引擎等。</p>
+<h2 id="端口服务相关信息："><a href="#端口服务相关信息：" class="headerlink" title="端口服务相关信息："></a>端口服务相关信息：</h2><p><strong>查看本机端口信息：</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs 1c">Windows<br>netstat -aon<span class="hljs-string">|findstr 3306</span><br>Linux<br>netstat -an<span class="hljs-string">|grep 3306</span><br>如果<span class="hljs-number">3306</span>端口打开了那么就会有回显<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="指纹识别："><a href="#指纹识别：" class="headerlink" title="指纹识别："></a>指纹识别：</h2><h2 id="Google-Hacking："><a href="#Google-Hacking：" class="headerlink" title="Google Hacking："></a>Google Hacking：</h2><h2 id="目录信息："><a href="#目录信息：" class="headerlink" title="目录信息："></a>目录信息：</h2><h2 id="Git-Hack："><a href="#Git-Hack：" class="headerlink" title="Git Hack："></a>Git Hack：</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="category-chain-item">渗透测试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>渗透之信息收集</div>
+      <div>http://example.com/2024/04/27/信息收集篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>piiick</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/30/ctfshow%20--%20php%E7%89%B9%E6%80%A7/" title="ctfshow--php特性">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow--php特性</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/23/%E7%BA%A2%E9%98%9F%E6%89%93%E9%9D%B6W1R3S%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/" title="红队打靶W1R3S打靶思路">
+                        <span class="hidden-mobile">红队打靶W1R3S打靶思路</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/curTexiao.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/backLines.js"></script>
+<script src="/js/piaoxue.js"></script>
+<script src="/js/qipao.js"></script>
+<script src="/js/curhit.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

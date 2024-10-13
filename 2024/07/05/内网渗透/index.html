@@ -1,0 +1,802 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/piiick.jpg">
+  <link rel="icon" href="/images/piiick.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="piiick">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="域的基础知识和域环境的搭建域（Domain）是一个有安全边界的计算机集合（安全边界的意思是，在两个域中一个域的用户无法访问另一个域的资源）。可以简单的把域理解为全面的工作组。域的安全管理控制机制更加严格，用户想要访问域内的资源，必须以合法的身份登录域，用户在域中所拥有的权限还取决与用户在域内的身份。 域的几种环境：单域：单域就是一个域，通常一个小公司一个域就够了。一个域内有两台服务器，一台作为域控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透">
+<meta property="og:url" content="http://example.com/2024/07/05/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/index.html">
+<meta property="og:site_name" content="piiick的博客">
+<meta property="og:description" content="域的基础知识和域环境的搭建域（Domain）是一个有安全边界的计算机集合（安全边界的意思是，在两个域中一个域的用户无法访问另一个域的资源）。可以简单的把域理解为全面的工作组。域的安全管理控制机制更加严格，用户想要访问域内的资源，必须以合法的身份登录域，用户在域中所拥有的权限还取决与用户在域内的身份。 域的几种环境：单域：单域就是一个域，通常一个小公司一个域就够了。一个域内有两台服务器，一台作为域控">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/neiwang/1.png">
+<meta property="og:image" content="http://example.com/images/neiwang/2.png">
+<meta property="og:image" content="http://example.com/images/neiwang/3.png">
+<meta property="og:image" content="http://example.com/images/neiwang/5.png">
+<meta property="og:image" content="http://example.com/images/neiwang/6.png">
+<meta property="og:image" content="http://example.com/images/neiwang/7.png">
+<meta property="og:image" content="http://example.com/images/neiwang/8.png">
+<meta property="og:image" content="http://example.com/images/neiwang/9.png">
+<meta property="og:image" content="http://example.com/images/neiwang/10.png">
+<meta property="og:image" content="http://example.com/images/neiwang/11.png">
+<meta property="og:image" content="http://example.com/images/neiwang/12.png">
+<meta property="og:image" content="http://example.com/images/neiwang/13.png">
+<meta property="og:image" content="http://example.com/images/neiwang/14.png">
+<meta property="og:image" content="http://example.com/images/neiwang/15.png">
+<meta property="og:image" content="http://example.com/images/neiwang/16.png">
+<meta property="og:image" content="http://example.com/images/neiwang/17.png">
+<meta property="og:image" content="http://example.com/images/neiwang/18.png">
+<meta property="og:image" content="http://example.com/images/neiwang/19.png">
+<meta property="og:image" content="http://example.com/images/neiwang/20.png">
+<meta property="og:image" content="http://example.com/images/neiwang/21.png">
+<meta property="og:image" content="http://example.com/images/neiwang/22.png">
+<meta property="og:image" content="http://example.com/images/neiwang/23.png">
+<meta property="og:image" content="http://example.com/images/neiwang/24.png">
+<meta property="og:image" content="http://example.com/images/neiwang/25.png">
+<meta property="article:published_time" content="2024-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-17T06:33:16.130Z">
+<meta property="article:author" content="piiick">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/neiwang/1.png">
+  
+  
+  
+  <title>内网渗透 - piiick的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cur.css">
+<link rel="stylesheet" href="/css/welt_right.css">
+<link rel="stylesheet" href="/css/toutudaziji.css">
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>piiick的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/none.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="内网渗透"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-05 00:00" pubdate>
+          2024年7月5日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  function getRandomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var randomNum = getRandomNumber(1, 17).toString();
+var banner_img = "/images/random-bg/" + randomNum + ".jpg";
+document.getElementById('banner').removeAttribute('style')
+document.getElementById('banner').setAttribute('style',`background: url('${banner_img}') no-repeat center center; background-size: cover;`)
+
+
+</script>
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">内网渗透</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="域的基础知识和域环境的搭建"><a href="#域的基础知识和域环境的搭建" class="headerlink" title="域的基础知识和域环境的搭建"></a>域的基础知识和域环境的搭建</h3><p><strong>域</strong>（Domain）是一个有安全边界的计算机集合（安全边界的意思是，在两个域中一个域的用户无法访问另一个域的资源）。可以简单的把域理解为全面的工作组。域的安全管理控制机制更加严格，用户想要访问域内的资源，必须以合法的身份登录域，用户在域中所拥有的权限还取决与用户在域内的身份。</p>
+<h4 id="域的几种环境："><a href="#域的几种环境：" class="headerlink" title="域的几种环境："></a><strong>域的几种环境</strong>：</h4><p><strong>单域</strong>：单域就是一个域，通常一个小公司一个域就够了。一个域内有两台服务器，一台作为域控制器，另一台当备份。</p>
+<p><strong>父域和子域</strong>：在网络中出于管理以及其他需求，需要在网络中划分多个域。第一个域称为父域，其他域称为子域。</p>
+<p><strong>域树</strong>：多个域建立信任关系的集合。一个域控制器只能控制本域，不能访问或管理其他域，两个域之间相互访问需要建立信任关系。</p>
+<p><strong>域森林</strong>：是指多个域树通过建立信任关系组成的集合。通过域树之间的信任关系，可以管理和使用整个域森林中的资源。</p>
+<p><img src="/images/neiwang/1.png" srcset="/images/loading.gif" lazyload></p>
+<h4 id="域名服务器DNS："><a href="#域名服务器DNS：" class="headerlink" title="域名服务器DNS："></a><strong>域名服务器DNS</strong>：</h4><p>是因特网使用的命名系统，用来把便于人们记忆的具有特定含义的主机名转换为便于机器处理的IP地址</p>
+<h4 id="域术语："><a href="#域术语：" class="headerlink" title="域术语："></a><strong>域术语：</strong></h4><p>**DC:**域控，域的创建者</p>
+<p><strong>域管理：</strong>域控上的管理员</p>
+<p><strong>AD活动目录：</strong>Active Directory</p>
+<p><strong>NTDS.dit：</strong>域用账户以数据库形式保存在活动目录中</p>
+<p>Ntdsutil.exe-ntdsutil.exe是域控制器自带的域数据库管理工具，从windows Server 2008 开始默认自带。我们可以通过ntdsutil.exe提取出域中所有的域用户信息</p>
+<p><strong>常规结构：</strong>组织单元(OU)、域(DOMAIN)、域树(tree)、域森林(forest),在域树内的所有域共享一个活动目录，这个活动目录内的数据分散地存储在各个域内，且每个域只储存该域内的数据</p>
+<p><strong>活动目录：</strong></p>
+<p>账号集中管理：所有账号均存在服务器上，方便对账号的重命名&#x2F;重置密码。</p>
+<p>软件集中管理：统一推送软件，统一安装网络打印机等。利用软件分布策略分发软件，可以让用户自由选择安装软件。</p>
+<p>环境集中管理：利用AD可以统一客户端桌面，IE，TCP&#x2F;IP等设置。</p>
+<p>增强安全性：统一部署杀毒软件和扫毒任务，集中化管理用户的计算机权限、统一制订用户密码策略等，可监控网络，资料统一管理。</p>
+<p>更可靠：更少的宕机时间。如：利用AD控制用户访问权限，利用群集、负载均衡等技术对文件服务器进行容灾设定。</p>
+<p>活动目录为Microsoft统一管理的基础平台，其他ISA、Exchange、SMS等服务都依赖于这个基础平台</p>
+<h3 id="搭建域："><a href="#搭建域：" class="headerlink" title="搭建域："></a><strong>搭建域：</strong></h3><h4 id="搭建域控："><a href="#搭建域控：" class="headerlink" title="搭建域控："></a>搭建域控：</h4><p>这里用win2008R2和win10的系统（一定是2008R2，或者是2012R2也行）</p>
+<p>网络选择桥接</p>
+<p>在虚拟机中下载VMware Tools</p>
+<p>win2008R2如果安装失败可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_77225571/article/details/139115200">Windows Server 2008 R2安装VMtools-安装失败的解决方法</a></p>
+<p>在win2008R2中进行配置域环境</p>
+<p><img src="/images/neiwang/2.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>添加角色</strong>：</p>
+<p>服务器角色选择Active Directory 域服务</p>
+<p>一路下一步直到安装</p>
+<p>打开服务器管理器</p>
+<p><img src="/images/neiwang/3.png" srcset="/images/loading.gif" lazyload></p>
+<p>在角色下有一个× Active Directory 域服务(此图是我已经完成的图片)</p>
+<p>选择在新林中新建域</p>
+<p>起一个域名(我是：piiicksec.fbi)</p>
+<p>点击下一步</p>
+<p>林功能级别选择Windows Server 2008 R2</p>
+<p>下一步，有选是否就选是，设置密码。</p>
+<p><strong>打开组策略管理</strong>：</p>
+<p><img src="/images/neiwang/5.png" srcset="/images/loading.gif" lazyload></p>
+<p>右键编辑Default Dmain Policy</p>
+<p><img src="/images/neiwang/6.png" srcset="/images/loading.gif" lazyload></p>
+<p>策略-&gt;Windows设置-&gt;安全设置</p>
+<p><img src="/images/neiwang/7.png" srcset="/images/loading.gif" lazyload></p>
+<p>账户策略-&gt;密码</p>
+<p><img src="/images/neiwang/8.png" srcset="/images/loading.gif" lazyload></p>
+<p>选择禁用密码必须符合复杂性要求</p>
+<p>密码长度最小为6</p>
+<p>密码最长使用期限设为0（不用修改密码）</p>
+<p><img src="/images/neiwang/9.png" srcset="/images/loading.gif" lazyload></p>
+<p>重启win2008，使得刚刚修改的策略生效</p>
+<p><strong>打开AD用户与计算机</strong>：</p>
+<p><img src="/images/neiwang/10.png" srcset="/images/loading.gif" lazyload></p>
+<p>打开USERS目录，右键用户</p>
+<p><img src="/images/neiwang/11.png" srcset="/images/loading.gif" lazyload></p>
+<p>用户名设定为test</p>
+<p><img src="/images/neiwang/12.png" srcset="/images/loading.gif" lazyload></p>
+<p>密码设定为123456</p>
+<p>设定为不能更改密码且密码永不过期</p>
+<p><img src="/images/neiwang/13.png" srcset="/images/loading.gif" lazyload></p>
+<p>完成新用户的创建</p>
+<p><img src="/images/neiwang/14.png" srcset="/images/loading.gif" lazyload></p>
+<h4 id="计算机加入域控："><a href="#计算机加入域控：" class="headerlink" title="计算机加入域控："></a>计算机加入域控：</h4><p>设置win10的dns，通过dns查找域</p>
+<p>控制面板 -&gt;网络和Internet -&gt;网络和共享中心</p>
+<p>点击右侧的 连接：Ethernet0</p>
+<p><img src="/images/neiwang/15.png" srcset="/images/loading.gif" lazyload></p>
+<p>点击左下角属性打开</p>
+<p><img src="/images/neiwang/16.png" srcset="/images/loading.gif" lazyload></p>
+<p>打开协议版本4（TCP&#x2F;IPv4）</p>
+<p>此时回到<strong>win2008</strong>，在cmd窗口输入ipconfig</p>
+<p><img src="/images/neiwang/17.png" srcset="/images/loading.gif" lazyload></p>
+<p>得到IPv4地址，回到win10之前的窗口，使用下面的DNS地址，输入我们的IPv4地址</p>
+<p><img src="/images/neiwang/18.png" srcset="/images/loading.gif" lazyload></p>
+<p>设置dns成功</p>
+<p><strong>加入域</strong>：</p>
+<p>控制面板-&gt;系统和安全-&gt;系统</p>
+<p><img src="/images/neiwang/19.png" srcset="/images/loading.gif" lazyload></p>
+<p>选择左侧的高级系统设置</p>
+<p><img src="/images/neiwang/20.png" srcset="/images/loading.gif" lazyload></p>
+<p>点击更改</p>
+<p>计算机名改为<strong>win10</strong></p>
+<p>选择<strong>隶属于域</strong>，域名为win2008设置的</p>
+<p><img src="/images/neiwang/21.png" srcset="/images/loading.gif" lazyload></p>
+<p>这里需要填入加入改域的名称和密码</p>
+<p>为test和123456（就是前面设置的用户）</p>
+<p><img src="/images/neiwang/22.png" srcset="/images/loading.gif" lazyload></p>
+<p><strong>重启</strong>win10虚拟机让更改生效</p>
+<p><strong>登录win10时</strong>选择其他用户</p>
+<p><img src="/images/neiwang/23.png" srcset="/images/loading.gif" lazyload></p>
+<p>输入我们域用户test和密码</p>
+<p><img src="/images/neiwang/24.png" srcset="/images/loading.gif" lazyload></p>
+<p>等待创建用户信息</p>
+<p>win+r打开cmd输入whoami查看当前用户</p>
+<p><img src="/images/neiwang/25.png" srcset="/images/loading.gif" lazyload></p>
+<p>域环境就搭好了（虽然没有备份域但是已经够用了）</p>
+<h3 id="内网渗透："><a href="#内网渗透：" class="headerlink" title="内网渗透："></a>内网渗透：</h3><h4 id="域信息收集命令："><a href="#域信息收集命令：" class="headerlink" title="域信息收集命令："></a>域信息收集命令：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">query user || qwinsta 查看当前用户<br>net user 查看本机用户<br>net user /domain 查看域用户<br>net view &amp; net group &quot;domain computers&quot; /<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="category-chain-item">内网渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>内网渗透</div>
+      <div>http://example.com/2024/07/05/内网渗透/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>piiick</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/09/ctfshow%20--%20%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="ctfshow--命令执行">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow--命令执行</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/04/JAVA%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E7%A1%80/" title="JAVA反序列化基础">
+                        <span class="hidden-mobile">JAVA反序列化基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/curTexiao.js"></script>
+<script src="/js/time.js"></script>
+<script src="/js/backLines.js"></script>
+<script src="/js/piaoxue.js"></script>
+<script src="/js/qipao.js"></script>
+<script src="/js/curhit.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script>
+  <link defer rel="stylesheet" href="/css/backgroundize.css" />
+  <!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":0,"vOffset":0},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
