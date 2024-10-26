@@ -67,7 +67,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"zKZ2F6rJHaX7DfXfYeZ4ETEo-gzGzoHsz","app_key":"Uq8sKrXGXLzhh18S0IZyetWr","server_url":"https://zkz2f6rj.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -338,6 +338,66 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
     
     <div class="category row nomargin-x">
       <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="hexo"
+        id="heading-ecf1af8bbe2a3020d96fe7ea971a03ad" role="tab" data-toggle="collapse" href="#collapse-ecf1af8bbe2a3020d96fe7ea971a03ad"
+        aria-expanded="false"
+      >
+        hexo
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/hexo/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-ecf1af8bbe2a3020d96fe7ea971a03ad"
+           role="tabpanel" aria-labelledby="heading-ecf1af8bbe2a3020d96fe7ea971a03ad">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/10/27/hexo%E6%B7%BB%E5%8A%A0%E7%BE%8E%E5%8C%96%E6%8F%92%E4%BB%B6/" title="hexo添加美化插件"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">hexo添加美化插件</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/" title="利用Cloudflare配置github加速镜像站"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">利用Cloudflare配置github加速镜像站</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/13/hexo%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98/" title="hexo遇到的一点小问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">hexo遇到的一点小问题</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="java"
         id="heading-93f725a07423fe1c889f448b33d21f46" role="tab" data-toggle="collapse" href="#collapse-93f725a07423fe1c889f448b33d21f46"
         aria-expanded="false"
@@ -426,57 +486,6 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">PHP利用pcre回溯次数限制的绕过waf</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="hexo"
-        id="heading-ecf1af8bbe2a3020d96fe7ea971a03ad" role="tab" data-toggle="collapse" href="#collapse-ecf1af8bbe2a3020d96fe7ea971a03ad"
-        aria-expanded="false"
-      >
-        hexo
-        <span class="list-group-count"></span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-        <a href="/categories/hexo/" class="category-count col-2 col-md-1 col-xm-1">
-          <i class="iconfont icon-articles"></i>
-          <span>2</span>
-        </a>
-      
-      <div class="category-collapse collapse " id="collapse-ecf1af8bbe2a3020d96fe7ea971a03ad"
-           role="tabpanel" aria-labelledby="heading-ecf1af8bbe2a3020d96fe7ea971a03ad">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/" title="利用Cloudflare配置github加速镜像站"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">利用Cloudflare配置github加速镜像站</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/10/13/hexo%E9%81%87%E5%88%B0%E7%9A%84%E5%B0%8F%E9%97%AE%E9%A2%98/" title="hexo遇到的一点小问题"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">hexo遇到的一点小问题</span>
         </a>
       
     
@@ -878,9 +887,34 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br> 
+       <a href="#" target="_blank" rel="nofollow noopener"><span>piiick</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>fluid</span></a> <br><span id="timeDate">天数载入中</span><span id="times">...</span><br>
     </div>
   
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
   
   
   
@@ -934,6 +968,8 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
 
 
