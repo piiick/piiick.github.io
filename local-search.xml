@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>GitHacker工具</title>
+    <link href="/2024/10/27/GitHacker%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <url>/2024/10/27/GitHacker%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<h4 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h4><p>遇到了写一下</p><h4 id="GitHacker"><a href="#GitHacker" class="headerlink" title="GitHacker:"></a>GitHacker:</h4><p>下载地址<a href="https://github.com/WangYihang/GitHacker">WangYihang&#x2F;GitHacker</a></p><p>下载好后再GitHacker目录下的命令行执行</p><p><code>python -m pip install -i https://pypi.org/simple/ GitHacker</code></p><p><img src="/images/GitHacker/1.png"></p><p>安装好环境后，尝试执行命令<code>githacker</code>或<code>githacker -h</code>，看看能不能行</p><p><img src="/images/GitHacker/2.png"></p><p>常用命令<code>--url</code>，<code>--output-folder</code></p><h4 id="do"><a href="#do" class="headerlink" title="do"></a>do</h4><p><strong>Shctf [Week1] ez_gittt</strong></p><p>执行命令<code>githacker --url http://xxxx/.git --output-folder shctf</code></p><p>获得文件shctf</p><p>打开文件，打开cmd，执行<code>git log</code></p><p><img src="/images/GitHacker/3.png"></p><p>可以看到有<code>add flag</code> 和<code>remove flag</code></p><p>使用命令<code>git diff + 版本commit</code>，查看信息改动，获得flag</p><p><img src="/images/GitHacker/4.png"></p><h4 id="结语："><a href="#结语：" class="headerlink" title="结语："></a>结语：</h4><p>确实挺不错的</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>fastcoll进行md5碰撞</title>
     <link href="/2024/10/27/fastcoll%E5%B7%A5%E5%85%B7md5%E7%A2%B0%E6%92%9E/"/>
     <url>/2024/10/27/fastcoll%E5%B7%A5%E5%85%B7md5%E7%A2%B0%E6%92%9E/</url>
@@ -61,25 +80,6 @@
   
   
   <entry>
-    <title>内网渗透2</title>
-    <link href="/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/"/>
-    <url>/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/</url>
-    
-    <content type="html"><![CDATA[<p><img src="/images/neiwang2/0.png"></p><h3 id="内网渗透："><a href="#内网渗透：" class="headerlink" title="内网渗透："></a>内网渗透：</h3><h4 id="域信息收集命令："><a href="#域信息收集命令：" class="headerlink" title="域信息收集命令："></a>域信息收集命令：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs shell">query user || qwinsta 查看当前在线用户<br>net user 查看本机用户<br>net user /domain 查看域用户<br>net view &amp; net group &quot;domain computers&quot; /domain 查看当前域计算机列表 第二<br>个查的更多<br>net view /domain 查看有几个域<br>net view \\\\dc 查看 dc 域内共享文件<br>net group /domain 查看域里面的组<br>net group &quot;domain admins&quot; /domain 查看域管<br>net localgroup administrators /domain /这个也是查域管，是升级为域控时，<br>本地账户也成为域管<br>net group &quot;domain controllers&quot; /domain 域控<br>net time /domain<br>net config workstation 当前登录域 - 计算机名 - 用户名<br>net use \\\\域控(如 pc.xx.com) password /user:xxx.com\username 相当于这个<br>帐号登录域内主机，可访问资源<br>ipconfig<br>systeminfo<br>tasklist /svc<br>tasklist /S ip /U domain\username /P /V 查看远程计算机 tasklist<br>net localgroup administrators &amp;&amp; whoami 查看当前是不是属于管理组<br>netstat -ano<br>nltest /dclist:xx 查看域控<br>whoami /all 查看 Mandatory Label uac 级别和 sid 号<br>net sessoin 查看远程连接 session (需要管理权限)<br>net share 共享目录<br>cmdkey /l 查看保存登陆凭证<br>echo %logonserver% 查看登陆域<br>spn –l administrator spn 记录<br>set 环境变量<br>dsquery server - 查找目录中的 AD DC/LDS 实例<br>dsquery user - 查找目录中的用户<br>dsquery computer 查询所有计算机名称 windows 2003<br>dir /s *.exe 查找指定目录下及子目录下没隐藏文件<br>arp -a<br>查询当前环境<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>内网渗透</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>利用Cloudflare配置github加速镜像站</title>
     <link href="/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/"/>
     <url>/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/</url>
@@ -90,6 +90,25 @@
     <categories>
       
       <category>hexo</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>内网渗透2</title>
+    <link href="/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/"/>
+    <url>/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/images/neiwang2/0.png"></p><h3 id="内网渗透："><a href="#内网渗透：" class="headerlink" title="内网渗透："></a>内网渗透：</h3><h4 id="域信息收集命令："><a href="#域信息收集命令：" class="headerlink" title="域信息收集命令："></a>域信息收集命令：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs shell">query user || qwinsta 查看当前在线用户<br>net user 查看本机用户<br>net user /domain 查看域用户<br>net view &amp; net group &quot;domain computers&quot; /domain 查看当前域计算机列表 第二<br>个查的更多<br>net view /domain 查看有几个域<br>net view \\\\dc 查看 dc 域内共享文件<br>net group /domain 查看域里面的组<br>net group &quot;domain admins&quot; /domain 查看域管<br>net localgroup administrators /domain /这个也是查域管，是升级为域控时，<br>本地账户也成为域管<br>net group &quot;domain controllers&quot; /domain 域控<br>net time /domain<br>net config workstation 当前登录域 - 计算机名 - 用户名<br>net use \\\\域控(如 pc.xx.com) password /user:xxx.com\username 相当于这个<br>帐号登录域内主机，可访问资源<br>ipconfig<br>systeminfo<br>tasklist /svc<br>tasklist /S ip /U domain\username /P /V 查看远程计算机 tasklist<br>net localgroup administrators &amp;&amp; whoami 查看当前是不是属于管理组<br>netstat -ano<br>nltest /dclist:xx 查看域控<br>whoami /all 查看 Mandatory Label uac 级别和 sid 号<br>net sessoin 查看远程连接 session (需要管理权限)<br>net share 共享目录<br>cmdkey /l 查看保存登陆凭证<br>echo %logonserver% 查看登陆域<br>spn –l administrator spn 记录<br>set 环境变量<br>dsquery server - 查找目录中的 AD DC/LDS 实例<br>dsquery user - 查找目录中的用户<br>dsquery computer 查询所有计算机名称 windows 2003<br>dir /s *.exe 查找指定目录下及子目录下没隐藏文件<br>arp -a<br>查询当前环境<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>内网渗透</category>
       
     </categories>
     
