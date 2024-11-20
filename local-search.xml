@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>bp插件Unicode转中文-knife</title>
+    <link href="/2024/11/20/bp%E6%8F%92%E4%BB%B6unicode%E8%BD%AC%E4%B8%AD%E6%96%87/"/>
+    <url>/2024/11/20/bp%E6%8F%92%E4%BB%B6unicode%E8%BD%AC%E4%B8%AD%E6%96%87/</url>
+    
+    <content type="html"><![CDATA[<h4 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h4><p>​在重放包测试中，有时会出现返回包为unicode编码的情况</p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/1.png"></p><p>这只是只有一句的情况，我们还尚可丢入unicode在线转中文，</p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/2.png"></p><p>但是如果需要多次重放包，并且多处unicode的情况，十分不方便。</p><p>所以我们需要在bp装一个unicode转中文的插件，本来是想用U2C插件的，但U2C已经停止更新，并且并入knife项目中，所以这篇文章就选择使用knife。</p><p>U2C:<a href="https://github.com/bit4woo/u2c">Unicode To Chinese – U2C : Unicode编码转中文的burp插件</a></p><p>knife:<a href="https://github.com/bit4woo/knife">knife</a></p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/3.png"></p><h4 id="knife安装与u2c功能的使用"><a href="#knife安装与u2c功能的使用" class="headerlink" title="knife安装与u2c功能的使用"></a>knife安装与u2c功能的使用</h4><p>​knife的md文档已经写的很详细了，我尝试使用github actions下载不知为什么无法下载，并且自行打包的方法后，mvn命令执行报错，所以我准备下载release版本(难绷)。</p><p> 下载jar包：<a href="https://github.com/bit4woo/knife/releases">Releases · bit4woo&#x2F;knife</a></p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/4.png"></p><p>导入jar包</p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/5.png"></p><p>使用u2c功能</p><p><img src="/images/bp%E6%8F%92%E4%BB%B6knife/6.png"></p><h4 id="结语："><a href="#结语：" class="headerlink" title="结语："></a>结语：</h4><p>​很不错的插件，knife除了这个u2c功能以外还有不少实用功能，可以查看knife的md文件看看。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>burp并发插件TurblIntruder(暂鸽)</title>
+    <link href="/2024/11/20/burp%E5%B9%B6%E5%8F%91%E6%8F%92%E4%BB%B6TurboIntruder/"/>
+    <url>/2024/11/20/burp%E5%B9%B6%E5%8F%91%E6%8F%92%E4%BB%B6TurboIntruder/</url>
+    
+    <content type="html"><![CDATA[<p>可参考：<a href="https://sanshiok.com/archive/16.html#">保姆级并发教程（Turbo Intruder）</a></p><h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>并发测试作为一个大力出奇迹的操作，在漏洞挖掘中也是非常常见，刚好bp的TurboIntruder插件也在测试并发漏洞中使用的比较多，所以介绍一下此插件。</p><p><img src="/images/TurboIntruder/1.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>工具</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Proxifier+bp抓小程序包以及可能遇到的问题</title>
     <link href="/2024/11/12/Proxifier+bp%E6%8A%93%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8C%85%E5%8F%8A%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <url>/2024/11/12/Proxifier+bp%E6%8A%93%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8C%85%E5%8F%8A%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
@@ -99,25 +137,6 @@
   
   
   <entry>
-    <title>利用Cloudflare配置github加速镜像站</title>
-    <link href="/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/"/>
-    <url>/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/</url>
-    
-    <content type="html"><![CDATA[<h4 id="缘由："><a href="#缘由：" class="headerlink" title="缘由："></a>缘由：</h4><p>发现不开代理网站的打开速度太慢了，加载速度也慢，刚好手里有域名，所以配置一个github加速镜像站。</p><p>参考：<a href="https://zhuanlan.zhihu.com/p/667256401">教程 | 使用 CloudFlare 搭建 Github 加速镜像站 - 知乎 (zhihu.com)</a></p><h3 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h3><ol><li>注册一个国内可访问域名</li><li>注册Cloudflare账号   <a href="https://dash.cloudflare.com/">https://dash.cloudflare.com/</a></li></ol><h3 id="1-将腾讯云域名解析到我的github-io"><a href="#1-将腾讯云域名解析到我的github-io" class="headerlink" title="1.将腾讯云域名解析到我的github.io"></a>1.将腾讯云域名解析到我的github.io</h3><p><img src="/images/Cloudflare/7.png"></p><h3 id="2-配置Worker"><a href="#2-配置Worker" class="headerlink" title="2.配置Worker"></a>2.配置Worker</h3><p><img src="/images/Cloudflare/1.png"></p><p>点击Create</p><p><img src="/images/Cloudflare/2.png"></p><p>Create Worker</p><p><img src="/images/Cloudflare/3.png"></p><p>此处名字可以随意写</p><p><img src="/images/Cloudflare/4.png"></p><p>点击Deploy部署</p><p><img src="/images/Cloudflare/5.png"></p><p>点击Edit Code</p><p><img src="/images/Cloudflare/6.png"></p><p>更换代码</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//xxxx 位置写你要镜像的网站的网站</span><br></code></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">TELEGRAPH_URL</span> = <span class="hljs-string">&#x27;https://xxxx&#x27;</span>;<br><br><span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;fetch&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>  event.<span class="hljs-title function_">respondWith</span>(<span class="hljs-title function_">handleRequest</span>(event.<span class="hljs-property">request</span>))<br>&#125;)<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleRequest</span>(<span class="hljs-params">request</span>) &#123;<br>  <span class="hljs-keyword">const</span> url = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(request.<span class="hljs-property">url</span>);<br>  url.<span class="hljs-property">host</span> = <span class="hljs-variable constant_">TELEGRAPH_URL</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^https?:\/\//</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br><br>  <span class="hljs-keyword">const</span> modifiedRequest = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>(url.<span class="hljs-title function_">toString</span>(), &#123;<br>    <span class="hljs-attr">headers</span>: request.<span class="hljs-property">headers</span>,<br>    <span class="hljs-attr">method</span>: request.<span class="hljs-property">method</span>,<br>    <span class="hljs-attr">body</span>: request.<span class="hljs-property">body</span>,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;follow&#x27;</span><br>  &#125;);<br><br>  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(modifiedRequest);<br>  <span class="hljs-keyword">const</span> modifiedResponse = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(response.<span class="hljs-property">body</span>, response);<br><br>  <span class="hljs-comment">// 添加允许跨域访问的响应头</span><br>  modifiedResponse.<span class="hljs-property">headers</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>);<br><br>  <span class="hljs-keyword">return</span> modifiedResponse;<br>&#125;<br></code></pre></td></tr></table></figure><p>点击右上角Deploy部署</p><p>退回，打开这个Worker-》setting</p><p><img src="/images/Cloudflare/8.png"></p><p>Add一个Domain</p><p>选择Custom domain</p><p><img src="/images/Cloudflare/9.png"></p><p>添加之前腾讯云的域名解析，我的是blog.piiick.top</p><p>等待解析，之后就可以访问了。</p><h3 id="结语："><a href="#结语：" class="headerlink" title="结语："></a>结语：</h3><p>感觉访问是快了不少，但是我的图片显示还是很慢，因为和博客一起上传了，后面有时间整个图床吧。</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>hexo</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>内网渗透2</title>
     <link href="/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/"/>
     <url>/2024/10/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F2/</url>
@@ -128,6 +147,25 @@
     <categories>
       
       <category>内网渗透</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>利用Cloudflare配置github加速镜像站</title>
+    <link href="/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/"/>
+    <url>/2024/10/25/%E5%88%A9%E7%94%A8Cloudflare%E6%90%AD%E5%BB%BAgithub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F%E7%AB%99/</url>
+    
+    <content type="html"><![CDATA[<h4 id="缘由："><a href="#缘由：" class="headerlink" title="缘由："></a>缘由：</h4><p>发现不开代理网站的打开速度太慢了，加载速度也慢，刚好手里有域名，所以配置一个github加速镜像站。</p><p>参考：<a href="https://zhuanlan.zhihu.com/p/667256401">教程 | 使用 CloudFlare 搭建 Github 加速镜像站 - 知乎 (zhihu.com)</a></p><h3 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h3><ol><li>注册一个国内可访问域名</li><li>注册Cloudflare账号   <a href="https://dash.cloudflare.com/">https://dash.cloudflare.com/</a></li></ol><h3 id="1-将腾讯云域名解析到我的github-io"><a href="#1-将腾讯云域名解析到我的github-io" class="headerlink" title="1.将腾讯云域名解析到我的github.io"></a>1.将腾讯云域名解析到我的github.io</h3><p><img src="/images/Cloudflare/7.png"></p><h3 id="2-配置Worker"><a href="#2-配置Worker" class="headerlink" title="2.配置Worker"></a>2.配置Worker</h3><p><img src="/images/Cloudflare/1.png"></p><p>点击Create</p><p><img src="/images/Cloudflare/2.png"></p><p>Create Worker</p><p><img src="/images/Cloudflare/3.png"></p><p>此处名字可以随意写</p><p><img src="/images/Cloudflare/4.png"></p><p>点击Deploy部署</p><p><img src="/images/Cloudflare/5.png"></p><p>点击Edit Code</p><p><img src="/images/Cloudflare/6.png"></p><p>更换代码</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//xxxx 位置写你要镜像的网站的网站</span><br></code></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">TELEGRAPH_URL</span> = <span class="hljs-string">&#x27;https://xxxx&#x27;</span>;<br><br><span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;fetch&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>  event.<span class="hljs-title function_">respondWith</span>(<span class="hljs-title function_">handleRequest</span>(event.<span class="hljs-property">request</span>))<br>&#125;)<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleRequest</span>(<span class="hljs-params">request</span>) &#123;<br>  <span class="hljs-keyword">const</span> url = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(request.<span class="hljs-property">url</span>);<br>  url.<span class="hljs-property">host</span> = <span class="hljs-variable constant_">TELEGRAPH_URL</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^https?:\/\//</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br><br>  <span class="hljs-keyword">const</span> modifiedRequest = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Request</span>(url.<span class="hljs-title function_">toString</span>(), &#123;<br>    <span class="hljs-attr">headers</span>: request.<span class="hljs-property">headers</span>,<br>    <span class="hljs-attr">method</span>: request.<span class="hljs-property">method</span>,<br>    <span class="hljs-attr">body</span>: request.<span class="hljs-property">body</span>,<br>    <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;follow&#x27;</span><br>  &#125;);<br><br>  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(modifiedRequest);<br>  <span class="hljs-keyword">const</span> modifiedResponse = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>(response.<span class="hljs-property">body</span>, response);<br><br>  <span class="hljs-comment">// 添加允许跨域访问的响应头</span><br>  modifiedResponse.<span class="hljs-property">headers</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>);<br><br>  <span class="hljs-keyword">return</span> modifiedResponse;<br>&#125;<br></code></pre></td></tr></table></figure><p>点击右上角Deploy部署</p><p>退回，打开这个Worker-》setting</p><p><img src="/images/Cloudflare/8.png"></p><p>Add一个Domain</p><p>选择Custom domain</p><p><img src="/images/Cloudflare/9.png"></p><p>添加之前腾讯云的域名解析，我的是blog.piiick.top</p><p>等待解析，之后就可以访问了。</p><h3 id="结语："><a href="#结语：" class="headerlink" title="结语："></a>结语：</h3><p>感觉访问是快了不少，但是我的图片显示还是很慢，因为和博客一起上传了，后面有时间整个图床吧。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>hexo</category>
       
     </categories>
     
