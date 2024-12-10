@@ -16,12 +16,12 @@
   <meta name="author" content="piiick">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言：​	好久没打靶了，决定开始练习打靶技巧。 准备：靶机地址：GoldenEye：1 ~ VulnHub — GoldenEye: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为net模式 开打：主机发现：扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  发现目标靶机地址：192.1">
+    <meta name="description" content="前言：​	好久没打靶了，决定开始练习打靶技巧。 准备：靶机地址：GoldenEye：1 ~ VulnHub — GoldenEye: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为NAT模式 开打：主机发现：扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  发现目标靶机地址：192.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GoldenEye打靶思路">
 <meta property="og:url" content="http://example.com/2024/12/09/GoldenEye%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/index.html">
 <meta property="og:site_name" content="piiick的博客">
-<meta property="og:description" content="前言：​	好久没打靶了，决定开始练习打靶技巧。 准备：靶机地址：GoldenEye：1 ~ VulnHub — GoldenEye: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为net模式 开打：主机发现：扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  发现目标靶机地址：192.1">
+<meta property="og:description" content="前言：​	好久没打靶了，决定开始练习打靶技巧。 准备：靶机地址：GoldenEye：1 ~ VulnHub — GoldenEye: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为NAT模式 开打：主机发现：扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  发现目标靶机地址：192.1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/GoldenEye/1.png">
 <meta property="og:image" content="http://example.com/images/GoldenEye/2.png">
@@ -86,7 +86,7 @@
 <meta property="og:image" content="http://example.com/images/GoldenEye/61.png">
 <meta property="og:image" content="http://example.com/images/GoldenEye/62.png">
 <meta property="article:published_time" content="2024-12-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-10T14:51:59.998Z">
+<meta property="article:modified_time" content="2024-12-10T14:57:22.993Z">
 <meta property="article:author" content="piiick">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/images/GoldenEye/1.png">
@@ -409,7 +409,7 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
                 
                 <h4 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h4><p>​	好久没打靶了，决定开始练习打靶技巧。</p>
 <h3 id="准备："><a href="#准备：" class="headerlink" title="准备："></a>准备：</h3><p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/goldeneye-1,240/">GoldenEye：1 ~ VulnHub — GoldenEye: 1 ~ VulnHub</a></p>
-<p>下载镜像，从Vm打开，给靶机设为net模式</p>
+<p>下载镜像，从Vm打开，给靶机设为NAT模式</p>
 <h3 id="开打："><a href="#开打：" class="headerlink" title="开打："></a>开打：</h3><h4 id="主机发现："><a href="#主机发现：" class="headerlink" title="主机发现："></a>主机发现：</h4><p>扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机</p>
 <p><code>sudo nmap -sn 192.168.200.128/24</code></p>
 <p><img src="/images/GoldenEye/1.png" srcset="/images/loading.gif" lazyload></p>
