@@ -16,15 +16,15 @@
   <meta name="author" content="piiick">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 12345678910111213141516# 安全设置encrypt:  # 启用插件  enable: true  # 自定义加密相关设置  abstract: &quot;这里的内容加密了，">
+    <meta name="description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 安装完成后，在package.json文件的dependecies依赖中可以看到encrypt插件，证明安装成功 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 123456789101112131415# 安全设置encrypt:  # 启用插">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为hexo文章加密">
 <meta property="og:url" content="http://example.com/2025/06/16/hexo%E6%B7%BB%E5%8A%A0%E5%AF%86%E7%A0%81/index.html">
 <meta property="og:site_name" content="piiick的博客">
-<meta property="og:description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 12345678910111213141516# 安全设置encrypt:  # 启用插件  enable: true  # 自定义加密相关设置  abstract: &quot;这里的内容加密了，">
+<meta property="og:description" content="第一步安装开源插件hexo-blog-encrypt npm install --save hexo-blog-encrypt 安装完成后，在package.json文件的dependecies依赖中可以看到encrypt插件，证明安装成功 第二步配置hexo中的_config.yml文件，在文件末尾添加如下代码 123456789101112131415# 安全设置encrypt:  # 启用插">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-17T09:14:25.014Z">
+<meta property="article:modified_time" content="2025-06-17T09:39:39.329Z">
 <meta property="article:author" content="piiick">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          304 字
+          398 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          8 分钟
+          10 分钟
         
       </span>
     
@@ -346,8 +346,9 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
                 
                 <h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>安装开源插件<a target="_blank" rel="noopener" href="https://github.com/D0n9X1n/hexo-blog-encrypt">hexo-blog-encrypt</a></p>
 <p><code>npm install --save hexo-blog-encrypt</code></p>
+<p>安装完成后，在package.json文件的dependecies依赖中可以看到encrypt插件，证明安装成功</p>
 <h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>配置hexo中的_config.yml文件，在文件末尾添加如下代码</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 安全设置</span><br><span class="hljs-attr">encrypt:</span><br>  <span class="hljs-comment"># 启用插件</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># 自定义加密相关设置</span><br>  <span class="hljs-attr">abstract:</span> <span class="hljs-string">&quot;这里的内容加密了，需要密码哦。&quot;</span><br>  <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;请输入密码查看本文。&quot;</span><br>  <span class="hljs-comment"># 可以在这里设定特定标签对应的默认密码</span><br>  <span class="hljs-attr">tags:</span><br>    <span class="hljs-bullet">-</span> [<span class="hljs-attr">name:</span> <span class="hljs-string">&quot;encryptAsSecret&quot;</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">&quot;yoursecret&quot;</span>]<br>  <span class="hljs-comment"># 错误消息设置</span><br>  <span class="hljs-attr">wrong_pass_message:</span> <span class="hljs-string">&quot;密码错误，请重试。&quot;</span><br>  <span class="hljs-attr">wrong_hash_message:</span> <span class="hljs-string">&quot;内容认证失败，但仍可尝试查看。&quot;</span><br>  <span class="hljs-comment"># 是否禁用日志记录</span><br>  <span class="hljs-attr">silent:</span> <span class="hljs-literal">false</span><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 安全设置</span><br><span class="hljs-attr">encrypt:</span><br>  <span class="hljs-comment"># 启用插件</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># 自定义加密相关设置</span><br>  <span class="hljs-attr">abstract:</span> <span class="hljs-string">&quot;这里的内容加密了，需要密码哦。&quot;</span><br>  <span class="hljs-attr">message:</span> <span class="hljs-string">&quot;请输入密码查看本文。&quot;</span><br>  <span class="hljs-comment"># 可以在这里设定特定标签对应的默认密码</span><br>  <span class="hljs-attr">tags:</span><br>    <span class="hljs-bullet">-</span> [<span class="hljs-attr">name:</span> <span class="hljs-string">&quot;encryptAsSecret&quot;</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">&quot;yoursecret&quot;</span>]<br>  <span class="hljs-comment"># 错误消息设置</span><br>  <span class="hljs-attr">wrong_pass_message:</span> <span class="hljs-string">&quot;密码错误，请重试。&quot;</span><br>  <span class="hljs-attr">wrong_hash_message:</span> <span class="hljs-string">&quot;内容认证失败，但仍可尝试查看。&quot;</span><br>  <span class="hljs-comment"># 是否禁用日志记录</span><br>  <span class="hljs-attr">silent:</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
 
 <p>配置项说明：</p>
 <ul>
@@ -360,7 +361,7 @@ document.getElementById('banner').setAttribute('style',`background: url('${banne
 </ul>
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>使用</p>
 <p>在需要加密文章的YAML头部添加如下设置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-comment">###</span><br><span class="hljs-attr">date:</span> <span class="hljs-string">XXXX-XX-XX</span> <span class="hljs-string">XX:XX:XX</span><br><span class="hljs-attr">password:</span> <span class="hljs-string">&quot;你的密码必须在引号里面&quot;</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-comment">###</span><br><span class="hljs-attr">date:</span> <span class="hljs-string">XXXX-XX-XX</span> <span class="hljs-string">XX:XX:XX</span><br><span class="hljs-attr">password:</span> <span class="hljs-string">mima</span> <span class="hljs-string">如果设为&quot;&quot;则为空</span><br><span class="hljs-attr">abstract:</span> <span class="hljs-string">这里有东西被加密了，需要输入密码查看哦。</span><br><span class="hljs-attr">message:</span> <span class="hljs-string">您好，这里需要密码。</span><br><span class="hljs-attr">wrong_pass_message:</span> <span class="hljs-string">抱歉，这个密码看着不太对，请再试试。</span><br><span class="hljs-attr">wrong_hash_message:</span> <span class="hljs-string">抱歉，这个文章不能被纠正，不过您还是能看看解密后的内容</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
 
 <p>参考：<a target="_blank" rel="noopener" href="https://oceanphy.github.io/2024/11/08/hexo%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86%E8%AE%BE%E7%BD%AE/">hexo博客加密设置 - 安知命</a></p>
 
